@@ -1,0 +1,5 @@
+# 忽略 Obsidian 内部的工作区状态（避免多设备 UI 冲突）
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+# 如果不想同步特定的插件缓存
+.obsidian/plugins/*/data.json
