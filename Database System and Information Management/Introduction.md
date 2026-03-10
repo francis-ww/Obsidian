@@ -25,7 +25,7 @@ Basic Concepts
 1.2 Purpose of DBS (e.g. university database)
      Data consists of
          Students
-         Insrtuctors
+         Instructors
          Classes
          Grades
      Application programs
