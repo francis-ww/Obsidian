@@ -36,7 +36,6 @@ Basic Concepts
          瞎子摸到的大象（局部）
      Logical Level(Conceptual Level)
          全面的数据和关系（全局逻辑）
-         
      Physical level(Internal Level)
          Describes how data(e.g. customer records) are actually stored in files 
          Physical/Internal Schema （物理模式，内模式）
