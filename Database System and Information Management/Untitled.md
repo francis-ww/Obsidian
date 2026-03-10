@@ -1,3 +1,4 @@
 关系数据库
 
-s
+structured query language (SQL)
+
