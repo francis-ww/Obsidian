@@ -1,1 +1,3 @@
-1.0 DB, DB
+1.0 DB, DBMS, DBS, DBMS
+
+Basic Con
