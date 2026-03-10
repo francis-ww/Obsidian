@@ -4,3 +4,4 @@ Basic Concepts
      Data
      Database(DB)
          相关信息的集合，以文件形式存储，集成(integrated collection of related data)
+         起源于规范化“表(”的处理（结构化数据）
