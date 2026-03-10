@@ -8,3 +8,4 @@ Basic Concepts
          Database就是相互之间有关联的table的集合 e.g. 登记表和成绩单
      Database Management System(DBMS)
          访问数据的程序，方便高效，数据库系统的核心，管理大体量的信息
+         ![[]]
