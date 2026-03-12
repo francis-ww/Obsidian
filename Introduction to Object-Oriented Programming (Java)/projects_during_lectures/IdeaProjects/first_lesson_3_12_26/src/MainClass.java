@@ -133,5 +133,3 @@ public class MainClass {
         mainPanel.add(westPanel,BorderLayout.WEST);
     }
 }
-
-11
