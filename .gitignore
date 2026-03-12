@@ -3,3 +3,7 @@
 .obsidian/workspace-mobile.json
 # 如果不想同步特定的插件缓存
 .obsidian/plugins/*/data.json
+.idea/
+*.class
+out/
+*.iml
