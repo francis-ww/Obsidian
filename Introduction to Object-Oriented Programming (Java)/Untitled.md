@@ -1,4 +1,0 @@
-![[MainClass.java]]
-ksjkahxjk
-
-sjkacj
