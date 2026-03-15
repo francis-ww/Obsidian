@@ -34,5 +34,5 @@
      * pursue literary work during the work at the custom of the port in London
      * in 1386, member of Parliament from Kent (Patron: John of Gaunt)
      Three Periods of works
-         1. from 1372 to 1386, influence of French literature: *The Book of Duchess*
-         2. 
+         1. from 1372 to 1386, influence of French literature: *The Book of Duchess* - an elegy on the death of the first wife of John of Gaunt.
+         2. from 1372 to 1386,
