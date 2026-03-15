@@ -3,4 +3,4 @@
     b. herald v., n. 是（某事）的前兆；预示；宣称/预兆；信使
 # Chaucer
 1. Historical Background
-     just as good as his peers William Langland and the one who wrote 
+     just as good as his peers William Langland and the one who wrote *Sir Gawain and the Green Knight* but also deserves a period of his own
