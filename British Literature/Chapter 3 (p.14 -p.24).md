@@ -6,4 +6,5 @@
 1. Historical Background
      just as good as his peers William Langland and the one who wrote *Sir Gawain and the Green Knight* but also deserves a period of his own
      * Hundred Years' War
+         English kings
      * Peasant Uprising
