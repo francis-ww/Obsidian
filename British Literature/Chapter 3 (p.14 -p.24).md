@@ -40,7 +40,7 @@
          3. the last fifteen years of his life: *The Canterbury Tales* (unfinished) - a general prologue and twenty four tales that are connected by "links".
         
      Significance
-          A Comprehensive Picture:** The pilgrims cover a wide range of characters from all walks of life, representing the whole range of 14th-century society except the very top and bottom.
+         **A Comprehensive Picture**: The pilgrims cover a wide range of characters from all walks of life, representing the whole range of 14th-century society except the very top and bottom.
          **Dramatic Structure:** Unlike _The Decameron_, stories are cleverly woven together by links; they are related to the personalities, private lives, and social status of the tellers.
-         **Humour and Satire:** Chaucer uses gentle satire and mild irony for most, but his satire is the bitterest in the portrayal of corrupt church figures like the pardoner.
+         **Humor and Satire:** Chaucer uses gentle satire and mild irony for most, but his satire is the bitterest in the portrayal of corrupt church figures like the pardoner.
          **Contribution to English:** By choosing the London dialect over French or Latin, Chaucer proved English is a beautiful language, greatly increasing its prestige.
