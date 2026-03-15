@@ -11,6 +11,7 @@
      j. deacon n. 执事；助祭
      k. bribery n. 行贿；受贿
      l. repentance n. 后悔；悔过；忏悔
+     m. layman n. 
 # Chaucer (1350-1400)
 1. Historical Background
      just as good as his peers William Langland and the one who wrote *Sir Gawain and the Green Knight* but also deserves a period of his own
@@ -24,5 +25,5 @@
          demanded to reform the church (corruption and rottenness), translated the Bible into Middle English (Father of English prose)
      William Langland (1330? - 1400?)
          *Piers Plowman* - An allegory - realistic picture of 14thcentury England
-         Bribery (Lady Meed), 
+         Bribery (Lady Meed), Falseness, Conscience, Reason, Repentance (Personification)
          
