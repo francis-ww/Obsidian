@@ -36,4 +36,4 @@
      Three Periods of works
          1. from 1372 to 1386, influence of French literature: *The Book of Duchess* - an elegy on the death of the first wife of John of Gaunt.
          2. from 1372 to 1386, influence of the Italian literature: *Troilus and Criseyde* - used Boccacio' s story freely to reflect the ideal of his age
-         3. the last fifteen years of his life: The Canterbury Tales
+         3. the last fifteen years of his life: *The Canterbury Tales* () - a general prologue and twenty four tales that are connected by "links".
