@@ -12,4 +12,6 @@
          exploitation and oppression by the feudal lords
          John Ball: When Adam delved and Eve span 
                  Who was then the gentleman?
+     John Wycliff
+         demanded to reform the church, tran 
          
