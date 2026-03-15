@@ -27,5 +27,5 @@
          *Piers Plowman* - An allegory - realistic picture of 14thcentury England
          Bribery (Lady Meed), Falseness, Conscience, Reason, Repentance (Personification)
 
-2. Geoffrey Chaucer (ca. 134)
-         
+2. Geoffrey Chaucer (ca. 1340-1400)
+     
