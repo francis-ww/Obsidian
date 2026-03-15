@@ -30,4 +30,4 @@
 2. Geoffrey Chaucer (ca. 1340-1400)
      * in 1357 - page at the court
      * two years later, joined the army, took part in the Hundred Years' War, taken prisoner
-     * pursue literary wor
+     * pursue literary work during the work at the custom of the port in London
