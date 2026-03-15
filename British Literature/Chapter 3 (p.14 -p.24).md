@@ -26,4 +26,6 @@
      William Langland (1330? - 1400?)
          *Piers Plowman* - An allegory - realistic picture of 14thcentury England
          Bribery (Lady Meed), Falseness, Conscience, Reason, Repentance (Personification)
+
+2. Geoffrey Chaucer (ca. 134)
          
