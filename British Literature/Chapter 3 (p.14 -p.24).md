@@ -5,7 +5,7 @@
      d. feudal n. 封建（制度）的
      e. temporal adj. 现世的；世俗的；时间的；太阳穴的
      f. alliterative adj. 押头韵的
-     g. 
+     g. personify v. 是...的典型；集中表现；拟人化
 # Chaucer (1350-1400)
 1. Historical Background
      just as good as his peers William Langland and the one who wrote *Sir Gawain and the Green Knight* but also deserves a period of his own
