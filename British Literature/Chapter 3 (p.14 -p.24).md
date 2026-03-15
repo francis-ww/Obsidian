@@ -8,6 +8,8 @@
      g. personify v. 是...的典型；集中表现；拟人化
      h. dwell v. 居住；栖身
      i. friar n. （天主教）修士
+     j. deacon
+     k. bribery n. 行贿；受贿
 # Chaucer (1350-1400)
 1. Historical Background
      just as good as his peers William Langland and the one who wrote *Sir Gawain and the Green Knight* but also deserves a period of his own
