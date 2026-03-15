@@ -8,7 +8,7 @@
      g. personify v. 是...的典型；集中表现；拟人化
      h. dwell v. 居住；栖身
      i. friar n. （天主教）修士
-     j. deacon
+     j. deacon n. 执事；助ji
      k. bribery n. 行贿；受贿
 # Chaucer (1350-1400)
 1. Historical Background
