@@ -12,6 +12,7 @@
      k. bribery n. 行贿；受贿
      l. repentance n. 后悔；悔过；忏悔
      m. layman n. 非专业人士；非神职人员的信徒
+     n. adhere 
 # Chaucer (1350-1400)
 1. Historical Background
      just as good as his peers William Langland and the one who wrote *Sir Gawain and the Green Knight* but also deserves a period of his own
