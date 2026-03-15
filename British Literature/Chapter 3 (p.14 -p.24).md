@@ -23,5 +23,6 @@
      John Wycliff (1324? - 1384)
          demanded to reform the church (corruption and rottenness), translated the Bible into Middle English (Father of English prose)
      William Langland (1330? - 1400?)
-         *Piers Plowman* - An allegory - realisitic picture of 14thcentury England
+         *Piers Plowman* - An allegory - realistic picture of 14thcentury England
+         Bribery (Lady Meed), 
          
