@@ -21,4 +21,6 @@
                  Who was then the gentleman?
      John Wycliff (1324? - 1384)
          demanded to reform the church (corruption and rottenness), translated the Bible into Middle English (Father of English prose)
+     William Langland (1330? - 1400?)
+     
          
