@@ -5,6 +5,7 @@
 # Chaucer (1350-1400)
 1. Historical Background
      just as good as his peers William Langland and the one who wrote *Sir Gawain and the Green Knight* but also deserves a period of his own
-     * Hundred Years' War
+     * Hundred Years' War (from 1327)
          English kings no longer regarded themselves as the vassals to the French kings - national consciousness awakens, French language replaced by native tongue
-     * Peasant Uprising
+     * Peasant Uprising (1381)
+         
