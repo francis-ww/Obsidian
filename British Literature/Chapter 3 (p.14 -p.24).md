@@ -9,5 +9,5 @@
      * Hundred Years' War (from 1327)
          English kings no longer regarded themselves as the vassals to the French kings - national consciousness awakens, French language replaced by native tongue
      * Peasant Uprising (1381)
-         exploitation a
+         exploitation and oppression by the feudal lords
          
