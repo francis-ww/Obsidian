@@ -28,4 +28,4 @@
          Bribery (Lady Meed), Falseness, Conscience, Reason, Repentance (Personification)
 
 2. Geoffrey Chaucer (ca. 1340-1400)
-     
+     * in 1357 page at the court
