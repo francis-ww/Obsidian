@@ -13,6 +13,6 @@
          exploitation and oppression by the feudal lords
          John Ball: When Adam delved and Eve span 
                  Who was then the gentleman?
-     John Wycliff
+     John Wycliff (1324? - 1384)
          demanded to reform the church (corruption and rottenness), translated the Bible into Middle English (Father of English prose)
          
