@@ -32,4 +32,4 @@
      * in 1357 - page at the court
      * two years later, joined the army, took part in the Hundred Years' War, taken prisoner
      * pursue literary work during the work at the custom of the port in London
-     * in 1386, member of Parliament from Kent (Patron:)
+     * in 1386, member of Parliament from Kent (Patron: John of Gaunt)
