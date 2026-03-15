@@ -13,5 +13,5 @@
          John Ball: When Adam delved and Eve span 
                  Who was then the gentleman?
      John Wycliff
-         demanded to reform the church, tran 
+         demanded to reform the church, translated the Bible into Middle English 
          
