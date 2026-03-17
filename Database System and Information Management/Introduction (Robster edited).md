@@ -61,7 +61,7 @@
 | **External Level** | View Level / External Schema         | **视图层 / 外模式**  | 用户所看到的数据呈现形式（局部逻辑） | 瞎子摸到大象（局部） |
 | **Logical Level**  | Conceptual Level / Conceptual Schema | **概念层 / 概念模式** | 全面的数据和关系（全局逻辑）     | 百科全书中的大象   |
 | **Physical Level** | Internal Level / Internal Schema     | **物理层 / 内模式**  | 描述数据实际如何存储在文件中     | 森林中的大象     |
-* 外模式/模式映射
+*
 ---
 
 # 📌 今日学习要点总结
