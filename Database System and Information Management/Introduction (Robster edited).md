@@ -64,7 +64,7 @@
 * Instances and Schems
      Instance - the actual content of the database at a particular point in time
      实例：按模式组织的一个具体的数据
-* 
+* Data Models
 ---
 
 # 📌 今日学习要点总结
