@@ -37,7 +37,7 @@
      Three Periods of works
          1. from 1372 to 1386, influence of French literature: *The Book of Duchess* - an elegy on the death of the first wife of John of Gaunt.
          2. from 1372 to 1386, influence of the Italian literature: *Troilus and Criseyde* - used Boccacio' s story freely to reflect the ideal of his age
-         3. the last fifteen years of his life: *The Canterbury Tales* (unfinished) - a general prologue and twenty four tales that are connected by "links".
+         3. the last fifteen years of his life: *The Canterbury Tales* (unfinished) - a general prologue and twenty four tales that are connected by "links", 30 pilgrims in total (Chaucer himself included)
         
      Significance
          **A Comprehensive Picture**: The pilgrims cover a wide range of characters from all walks of life, representing the whole range of 14th-century society except the very top and bottom.
