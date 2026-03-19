@@ -74,9 +74,9 @@ public class MainClass {
         constraints.gridheight = 1;//设置组件在网格中占用的行数
         panel.add(button3,constraints);//向panel中添加按钮3
 
-        constraints.gridx = 3;//设置组件添加位置列数
+        constraints.gridx = 1;//设置组件添加位置列数
         constraints.gridy = 1;//设置组件添加位置行数
-        constraints.gridwidth = 1;//设置组件在网格占用的列数
+        constraints.gridwidth = 2;//设置组件在网格占用的列数
         constraints.gridheight = 2;//设置组件在网格中占用的行数
         panel.add(button4,constraints);//向panel中添加按钮4
 
