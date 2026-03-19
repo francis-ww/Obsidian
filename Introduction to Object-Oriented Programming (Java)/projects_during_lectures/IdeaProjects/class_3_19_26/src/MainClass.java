@@ -10,12 +10,13 @@ public class MainClass {
         CardLayout layout = new CardLayout(20,10);//新建一个卡片布局管理器
         panel.setLayout(layout);//设置layout设置为panel的布局管理器
 
-        JPanel panel1 = new JPanel("1");
-        JPanel panel2 = new JPanel("2");
-        JPanel panel3 = new JPanel("3");
+        JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+        JPanel panel3 = new JPanel();
 
-        panel.add(panel1);
-        
+        panel.add(panel1, "面板1");
+        panel.add(panel2, "面板2");
+        panel.add(panel3, "面板3");
 
         JButton button1 = new JButton("按钮---1");//新建按钮1
         JButton button2 = new JButton("按钮---2");//新建按钮2
