@@ -336,9 +336,17 @@ public class MainClass {
             tabs.addTab(tabNames[i], panel);
         }
         frame.add(tabs);
-        for (Component c : com) {
-            frame.add(c);
+        for(int i = 0 ; i < tabNames.length; i++) {
+            JPanel panel = new JPanel();
+            panel.setBackground(colorNames[i]);
+
+            // 将对应的组件添加到当前的面板中
+            panel.add(com[i]);
+
+            // 将面板添加到标签页
+            tabs.addTab(tabNames[i], panel);
         }
+        frame.add(tabs);
         //设置窗体关闭行为，当用户点击窗体的关闭图标时，结束程序
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(250,250);//设置窗体的宽和高
