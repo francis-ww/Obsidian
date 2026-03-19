@@ -125,6 +125,7 @@ public class MainClass {
         //创建一个下组合边框对象，此边框由两个边框组合而成
         border[6] = new CompoundBorder(new TitledBorder(("compound")),
                 new LineBorder(Color.BLACK));
+        border[7] = new CompoundBorder(new TitledBorder(("what")));
 
         for(int i=0;i<7;i++) {
             panel[i] = new JPanel();
