@@ -261,7 +261,7 @@ public class MainClass {
     public static void main(String[] args) {
         String[] counties = {"中国","美国","俄罗斯","新加坡","英国","法国","德国","意套利"};
         String[] cities = {"北京","上海","广州","深圳","成都","武汉","南京","天津"};
-        String[] provinces = {"Sichuan", "Hunan", "Guangdong", "Hubei"};
+        String[] provinces = {"Sichuan", "Hunan", "Guangdong", "Hubei", "Tibet", "Xinjiang"};
         JFrame frame = new JFrame("列表窗体");
         frame.setSize(400,300);//设置窗体的宽和高
         frame.setLayout(null);//使用绝对位置布局，不用布局管理器
@@ -282,7 +282,7 @@ public class MainClass {
         }
         comboBox.setLocation(20,40);//设置下拉列表组件的位置
         comboBox.setSize(150,30);//设置下拉列表组件的大小
-        comboBox.setEditable(true);//设置下拉列表组件为可编辑
+        comboBox.setEditable(false);//设置下拉列表组件为可编辑
         frame.add(comboBox);//将下拉列表组件添加到窗体
 
         JComboBox<String> comboBox2 = new JComboBox<String>();//新建一个下拉列表组件
@@ -291,7 +291,7 @@ public class MainClass {
         }
         comboBox2.setLocation(20,140);//设置下拉列表组件的位置
         comboBox2.setSize(150,30);//设置下拉列表组件的大小
-        comboBox2.setEditable(true);//设置下拉列表组件为可编辑
+        comboBox2.setEditable(false);//设置下拉列表组件为可编辑
         frame.add(comboBox2);//将下拉列表组件添加到窗体
 
         JLabel label2 = new JLabel("城市：");//新建标签组件
