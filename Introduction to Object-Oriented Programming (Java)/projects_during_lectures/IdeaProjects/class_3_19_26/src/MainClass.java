@@ -311,17 +311,17 @@ public class MainClass {
     public static void main(String[] args) {
         String[] tabNames = {
                 "black","green","blue",
-                "red","yellow","pink"};
+                "red","yellow","pink","gray","cyan"};
         Color[] colorNames = {
                 Color.BLACK,Color.GREEN,Color.BLUE,
-                Color.RED,Color.YELLOW,Color.PINK};
+                Color.RED,Color.YELLOW,Color.PINK,Color.GRAY,Color.CYAN};
         JFrame frame = new JFrame("示例窗体");
         //按默认方式创建页签面板
         JTabbedPane tabs = new JTabbedPane();
         //按定制方式创建页签面板
         //JTabbedPane tabs = new JTabbedPane(JTabbedPane.BOTTOM,
         //        JTabbedPane.SCROLL_TAB_LAYOUT);
-        for(int i = 0 ;i<6;i++) {
+        for(int i = 0 ;i<tabNames.length;i++) {
             JPanel panel = new JPanel();
             panel.setBackground(colorNames[i]);
             tabs.addTab(tabNames[i], panel);
