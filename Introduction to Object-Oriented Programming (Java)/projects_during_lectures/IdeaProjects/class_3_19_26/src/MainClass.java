@@ -37,7 +37,7 @@ public class MainClass {
         frame.setVisible(true);//显示窗体
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         JFrame frame = new JFrame("网格包布局管理器");//新建JFrame窗体
         frame.setSize(400,200);//设置窗体宽高
         JPanel panel = new JPanel();//新建JPanel面板
@@ -103,6 +103,36 @@ public class MainClass {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//设置窗体关闭响应方式
         frame.setVisible(true);//显示窗体
+    }
+
+    public static void main(String[] args) {
+        JPanel panel[]  = new JPanel[7];//声明一个JPanel数组
+        Border border[] = new Border[7];//声明一个Border数组
+
+        JFrame frame= new JFrame("边框示例");
+        frame.setSize(350,150);
+        frame.setLayout(new GridLayout(2,4));//为窗体设置一个2行4列的网格布局管理器
+
+        border[0] = new TitledBorder("title");//创建一个TitleBorder对象
+        border[1] = new EtchedBorder();//创建一个EtchedBorder对象
+        border[2] = new LineBorder(Color.BLUE);//创建一个LineBorder对象
+//创建一个MatteBorder对象，添加一个宽度为5的红色边框
+        border[3] = new MatteBorder(5,5,5,5,Color.RED);
+        border[4] = new BevelBorder(BevelBorder.RAISED);//创建一个BevelBorder对象
+        //创建一个SoftBevelBorder对象
+        border[5] = new SoftBevelBorder(BevelBorder.LOWERED);
+        //创建一个下组合边框对象，此边框由两个边框组合而成
+        border[6] = new CompoundBorder(new TitledBorder(("compound")),
+                new LineBorder(Color.BLACK));
+
+        for(int i=0;i<7;i++) {
+            panel[i] = new JPanel();
+            panel[i].setBorder(border[i]);
+            frame.add(panel[i]);
+        }
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 
 }
