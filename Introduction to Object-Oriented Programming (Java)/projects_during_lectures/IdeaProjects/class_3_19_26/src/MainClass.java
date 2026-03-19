@@ -132,6 +132,10 @@ public class MainClass {
             frame.add(panel[i]);
         }
 
+        Border b1 = new CompoundBorder(new TitledBorder(("compoud")),
+                new LineBorder(Color.BLACK));
+        b1 = new CompoundBorder(b1, new LineBorder(Color.BLACK));
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
