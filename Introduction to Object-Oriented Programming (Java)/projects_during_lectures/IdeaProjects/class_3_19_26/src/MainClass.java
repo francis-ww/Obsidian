@@ -261,6 +261,7 @@ public class MainClass {
     public static void main(String[] args) {
         String[] counties = {"中国","美国","俄罗斯","新加坡","英国","法国","德国","意套利"};
         String[] cities = {"北京","上海","广州","深圳","成都","武汉","南京","天津"};
+        String[] provinces = {"Sichuan", "Hunan", "Guangdong", "Hubei"};
         JFrame frame = new JFrame("列表窗体");
         frame.setSize(400,300);//设置窗体的宽和高
         frame.setLayout(null);//使用绝对位置布局，不用布局管理器
@@ -269,6 +270,11 @@ public class MainClass {
         label1.setLocation(20,20);//设置标签组件位置
         label1.setSize(100,20);//设置标签组件大小
         frame.add(label1);//将标签组件添加到窗体上
+
+        JLabel label3 = new JLabel("Provinces");
+        label3.setLocation(20,60);//设置标签组件位置
+        label3.setSize(100,20);//设置标签组件大小
+        frame.add(label3);//将标签组件添加到窗体上
 
         JComboBox<String> comboBox = new JComboBox<String>();//新建一个下拉列表组件
         for(int i = 0;i<counties.length;i++) {//向下拉列表选项中添加组件
