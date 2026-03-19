@@ -21,10 +21,14 @@ public class MainClass {
         JButton button1 = new JButton("按钮---1");//新建按钮1
         JButton button2 = new JButton("按钮---2");//新建按钮2
         JButton button3 = new JButton("按钮---3");//新建按钮3
+        JButton button4 = new JButton("按钮---4");
+        JButton button5 = new JButton("按钮---5");
+        JButton button6 = new JButton("按钮---6");
 
-        panel.add(button1,"card1");//向panel中添加按钮1
-        panel.add(button2,"card2");//向panel中添加按钮2
-        panel.add(button3,"card3");//向panel中添加按钮3
+        panel1.add(button1);//向panel中添加按钮1
+        panel2.add(button2);
+        panel2.add(button3);//向panel中添加按钮2
+        panel3.add(button4);//向panel中添加按钮3
         layout.show(panel,"card3");//显示卡片2
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//设置窗体关闭响应方式
