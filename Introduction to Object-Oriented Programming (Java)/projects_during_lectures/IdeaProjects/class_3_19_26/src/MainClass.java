@@ -49,6 +49,7 @@ public class MainClass {
         constraints.fill = GridBagConstraints.BOTH;//组件填满网格
         constraints.weightx = 1.0; // ✅ 新增：水平方向撑开
         constraints.weighty = 1.0;
+        constraints.insets = new Insets(2, 2, 2, 2);
 
         JButton button1 = new JButton("按钮---1");//新建按钮1
         JButton button2 = new JButton("按钮---2");//新建按钮2
