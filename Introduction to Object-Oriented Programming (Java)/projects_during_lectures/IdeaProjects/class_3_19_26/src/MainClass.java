@@ -27,7 +27,7 @@ public class MainClass {
 
         panel1.add(button1, "card1");//向panel中添加按钮1
         panel2.add(button2, "card2");
-        panel2.add(button3, "crad2");//向panel中添加按钮2
+        panel2.add(button3, "card2");//向panel中添加按钮2
         panel3.add(button4, "card3");//向panel中添加按钮3
         layout.show(panel,"card3");//显示卡片2
 
