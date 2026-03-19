@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.border.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.text.AbstractDocument;
@@ -356,99 +358,64 @@ public class MainClass {
     }
 
 
-    public class SimpleNotepad extends JFrame implements ActionListener {
-        // 定义组件
-        JTextArea textArea;
-        JScrollPane scrollPane;
-        JMenuBar menuBar;
-        JMenu fileMenu;
-        JMenuItem newItem, openItem, saveItem, exitItem;
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("菜单示例窗体");
+        frame.setSize(400,250);//设置窗体的宽和高
 
-        public SimpleNotepad() {
-            // 1. 设置窗口基本属性
-            setTitle("Java 简易记事本");
-            setSize(800, 600);
-            setDefaultCloseOperation(EXIT_ON_CLOSE);
+        JMenuBar menuBar = new JMenuBar();//新建菜单条
+        frame.setJMenuBar(menuBar);//将菜单条添加到窗体上
 
-            // 2. 初始化文本区域和滚动条
-            textArea = new JTextArea();
-            textArea.setFont(new Font("Monospaced", Font.PLAIN, 16));
-            scrollPane = new JScrollPane(textArea);
-            add(scrollPane, BorderLayout.CENTER);
+        JMenu fileMenu = new JMenu("File");//新建菜单"File"
+        fileMenu.setMnemonic('F');//设置"File"菜单助记符
+        menuBar.add(fileMenu);//将菜单"File"添加到菜单条中
 
-            // 3. 创建菜单栏
-            menuBar = new JMenuBar();
-            fileMenu = new JMenu("文件(F)");
+        JMenuItem newItem = new JMenuItem("new");//新建"new"菜单项
+        newItem.setAccelerator(KeyStroke.getKeyStroke('N'));//为菜单项添加"N"快捷键
+        fileMenu.add(newItem);//将"new"菜单项添加到"File"菜单中
 
-            newItem = new JMenuItem("新建");
-            openItem = new JMenuItem("打开");
-            saveItem = new JMenuItem("保存");
-            exitItem = new JMenuItem("退出");
+        JMenuItem openItem = new JMenuItem("open");//新建"open"菜单项
+        //为菜单项添加Ctrl+S快捷键
+        openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+        fileMenu.add(openItem);//将"open"菜单项添加到"File"菜单中
 
-            // 为菜单项添加监听器
-            newItem.addActionListener(this);
-            openItem.addActionListener(this);
-            saveItem.addActionListener(this);
-            exitItem.addActionListener(this);
+        //以下代码将创建一个具有打印预览和打印两个菜单项的子菜单        
+        JMenu childMenu = new JMenu("print");
+        JMenuItem childPrintPreview = new JMenuItem("print preview");//创建打印预菜单项
+        JMenuItem childPrint = new JMenuItem("print");//创建打印菜单项
+        childMenu.add(childPrintPreview);//将打印预览菜单项添加到子菜单中
+        childMenu.add(childPrint);//将打印菜单项添加到子菜单中
+        //为菜单项添加Ctrl+P快捷键
+        childPrint.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.CTRL_MASK));
+        fileMenu.add(childMenu);//将子菜单添加到fileMenu菜单项中
 
-            // 组合菜单
-            fileMenu.add(newItem);
-            fileMenu.add(openItem);
-            fileMenu.add(saveItem);
-            fileMenu.addSeparator(); // 分割线
-            fileMenu.add(exitItem);
-            menuBar.add(fileMenu);
+        fileMenu.addSeparator();//在菜"file"菜单中添加分隔条
 
-            setJMenuBar(menuBar);
-            setVisible(true);
-        }
+        JMenuItem aboutItem = new JMenuItem("about...");//新建about菜单
+        fileMenu.add(aboutItem);//将"about"菜单项添加"file"菜单中
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == newItem) {
-                textArea.setText("");
-            } else if (e.getSource() == openItem) {
-                openFile();
-            } else if (e.getSource() == saveItem) {
-                saveFile();
-            } else if (e.getSource() == exitItem) {
-                System.exit(0);
-            }
-        }
+        JMenu editMenu = new JMenu("Edit");//新建菜单"Edit"
+        editMenu.setMnemonic('E');//设置“Edit"菜单助记符
+        menuBar.add(editMenu);//将菜单"Edit"添加到菜单条中
 
-        // 打开文件逻辑
-        private void openFile() {
-            JFileChooser fileChooser = new JFileChooser();
-            int option = fileChooser.showOpenDialog(this);
-            if (option == JFileChooser.APPROVE_FILE) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(fileChooser.getSelectedFile()))) {
-                    textArea.setText("");
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        textArea.append(line + "\n");
-                    }
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "读取文件失败");
-                }
-            }
-        }
+        //添加复选框子菜单项
+        JCheckBoxMenuItem boldItem = new  JCheckBoxMenuItem("加粗");
+        editMenu.add(boldItem);
 
-        // 保存文件逻辑
-        private void saveFile() {
-            JFileChooser fileChooser = new JFileChooser();
-            int option = fileChooser.showSaveDialog(this);
-            if (option == JFileChooser.APPROVE_FILE) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileChooser.getSelectedFile()))) {
-                    writer.write(textArea.getText());
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "保存文件失败");
-                }
-            }
-        }
+        editMenu.addSeparator();//添加分隔条
+        //添加两个单选按钮菜单项
+        JRadioButtonMenuItem fontItem1 = new  JRadioButtonMenuItem("宋体");
+        JRadioButtonMenuItem fontItem2 = new  JRadioButtonMenuItem("楷体");
+        fontItem1.setSelected(true);//设置fontItem1为选中状态
+        ButtonGroup fontGroup = new ButtonGroup();//新建按钮组
+        //将两个复选按钮菜单项加为一组
+        fontGroup.add(fontItem1);
+        fontGroup.add(fontItem2);
+        //将菜单项加入editMenu菜单中
+        editMenu.add(fontItem1);
+        editMenu.add(fontItem2);
 
-        public static void main(String[] args) {
-            // 使用 SwingUtilities 确保在事件调度线程中启动 UI
-            SwingUtilities.invokeLater(() -> new SimpleNotepad());
-        }
+        //设置窗体关闭行为，当用户点击窗体的关闭图标时，结束程序
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);//设置窗体可见
     }
 }
