@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 public class MainClass {
     public static void main1(String[] args) {
@@ -235,6 +239,30 @@ public class MainClass {
         textArea1.setLocation(20,100);//设置文本区域的位置
         textArea1.setSize(150,150);//设置文本区域的大小
         frame.add(textArea1);//将文本区域添加到窗体
+
+        int maxCharacters = 10; // 假设限制 100 字
+        ((AbstractDocument) textArea1.getDocument()).setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // 计算替换后的总长度：当前长度 - 要删除的长度 + 新插入的长度
+                int currentLength = fb.getDocument().getLength();
+                int futureLength = currentLength - length + (text != null ? text.length() : 0);
+
+                if (futureLength <= maxCharacters) {
+                    super.replace(fb, offset, length, text, attrs);
+                } else {
+                    // 如果超限，只截取允许的部分放入
+                    int availableSpace = maxCharacters - (currentLength - length);
+                    if (availableSpace > 0 && text != null) {
+                        super.replace(fb, offset, length, text.substring(0, availableSpace), attrs);
+                    }
+                    // 这里可以加一个 Toolkit.getDefaultToolkit().beep(); 提示音
+                }
+            }
+        });
+// --- 核心限制代码结束 ---
+
+        frame.add(textArea1);
 
         JLabel label4 = new JLabel("滚动文本域：");//新建标签组件
         label4.setLocation(200,70);//设置标签组件位置
