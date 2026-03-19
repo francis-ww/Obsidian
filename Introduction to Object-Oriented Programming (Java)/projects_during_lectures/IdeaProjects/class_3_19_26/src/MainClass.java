@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.border.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.text.AbstractDocument;
@@ -308,7 +310,7 @@ public class MainClass {
         frame.setVisible(true);//设置窗体可见
     }
 
-    public static void main(String[] args) {
+    public static void main7(String[] args) {
         String[] tabNames = {
                 "black","green","blue",
                 "red","yellow","pink","gray","cyan"};
@@ -351,5 +353,102 @@ public class MainClass {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(250,250);//设置窗体的宽和高
         frame.setVisible(true);//设置窗体可见
+    }
+
+
+    public class SimpleNotepad extends JFrame implements ActionListener {
+        // 定义组件
+        JTextArea textArea;
+        JScrollPane scrollPane;
+        JMenuBar menuBar;
+        JMenu fileMenu;
+        JMenuItem newItem, openItem, saveItem, exitItem;
+
+        public SimpleNotepad() {
+            // 1. 设置窗口基本属性
+            setTitle("Java 简易记事本");
+            setSize(800, 600);
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+            // 2. 初始化文本区域和滚动条
+            textArea = new JTextArea();
+            textArea.setFont(new Font("Monospaced", Font.PLAIN, 16));
+            scrollPane = new JScrollPane(textArea);
+            add(scrollPane, BorderLayout.CENTER);
+
+            // 3. 创建菜单栏
+            menuBar = new JMenuBar();
+            fileMenu = new JMenu("文件(F)");
+
+            newItem = new JMenuItem("新建");
+            openItem = new JMenuItem("打开");
+            saveItem = new JMenuItem("保存");
+            exitItem = new JMenuItem("退出");
+
+            // 为菜单项添加监听器
+            newItem.addActionListener(this);
+            openItem.addActionListener(this);
+            saveItem.addActionListener(this);
+            exitItem.addActionListener(this);
+
+            // 组合菜单
+            fileMenu.add(newItem);
+            fileMenu.add(openItem);
+            fileMenu.add(saveItem);
+            fileMenu.addSeparator(); // 分割线
+            fileMenu.add(exitItem);
+            menuBar.add(fileMenu);
+
+            setJMenuBar(menuBar);
+            setVisible(true);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == newItem) {
+                textArea.setText("");
+            } else if (e.getSource() == openItem) {
+                openFile();
+            } else if (e.getSource() == saveItem) {
+                saveFile();
+            } else if (e.getSource() == exitItem) {
+                System.exit(0);
+            }
+        }
+
+        // 打开文件逻辑
+        private void openFile() {
+            JFileChooser fileChooser = new JFileChooser();
+            int option = fileChooser.showOpenDialog(this);
+            if (option == JFileChooser.APPROVE_FILE) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(fileChooser.getSelectedFile()))) {
+                    textArea.setText("");
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        textArea.append(line + "\n");
+                    }
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "读取文件失败");
+                }
+            }
+        }
+
+        // 保存文件逻辑
+        private void saveFile() {
+            JFileChooser fileChooser = new JFileChooser();
+            int option = fileChooser.showSaveDialog(this);
+            if (option == JFileChooser.APPROVE_FILE) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileChooser.getSelectedFile()))) {
+                    writer.write(textArea.getText());
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "保存文件失败");
+                }
+            }
+        }
+
+        public static void main(String[] args) {
+            // 使用 SwingUtilities 确保在事件调度线程中启动 UI
+            SwingUtilities.invokeLater(() -> new SimpleNotepad());
+        }
     }
 }
