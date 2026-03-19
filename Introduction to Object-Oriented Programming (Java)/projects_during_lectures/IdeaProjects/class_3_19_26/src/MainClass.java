@@ -141,7 +141,7 @@ public class MainClass {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main4(String[] args) {
         JFrame frame= new JFrame("按钮示例");
         frame.setSize(350,150);
         frame.setLayout(new FlowLayout());//为窗体设置一个流式布局管理器
@@ -198,6 +198,59 @@ public class MainClass {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("文本窗体");
+        frame.setSize(400,300);//设置窗体的宽和高
+        frame.setLayout(null);//使用绝对位置布局，不用布局管理器
+
+        JLabel label1 = new JLabel("登录名：");//新建标签组件
+        label1.setLocation(20,20);//设置标签组件位置
+        label1.setSize(100,20);//设置标签组件大小
+        frame.add(label1);//将标签组件添加到窗体上
+
+        JTextField textField = new JTextField();//新建一个文本框组件
+        textField.setLocation(20,40);//设置文本框的位置
+        textField.setSize(150,30);//设置文本框的大小
+        frame.add(textField);//将文本框添加到窗体
+
+        JLabel label2 = new JLabel("密码：");//新建标签组件
+        label2.setLocation(200,20);//设置标签组件位置
+        label2.setSize(100,20);//设置标签组件大小
+        frame.add(label2);//将标签组件添加到窗体上
+
+        JPasswordField passwordField = new JPasswordField();//新建一个密码框组件
+        passwordField.setLocation(200,40);//设置密码框的位置
+        passwordField.setSize(150,30);//设置密码框的大小
+        frame.add(passwordField);//将密码框添加到窗体
+
+        JLabel label3 = new JLabel("文本区域：");//新建标签组件
+        label3.setLocation(20,70);//设置标签组件位置
+        label3.setSize(100,20);//设置标签组件大小
+        frame.add(label3);//将标签组件添加到窗体上
+
+        JTextArea textArea1 = new JTextArea();//新建一个文本区域组件
+        textArea1.setLocation(20,100);//设置文本区域的位置
+        textArea1.setSize(150,150);//设置文本区域的大小
+        frame.add(textArea1);//将文本区域添加到窗体
+
+        JLabel label4 = new JLabel("滚动文本域：");//新建标签组件
+        label4.setLocation(200,70);//设置标签组件位置
+        label4.setSize(100,20);//设置标签组件大小
+        frame.add(label4);//将标签组件添加到窗体上
+
+        JTextArea textArea2 = new JTextArea();//新建一个文本区域组件
+        //新建一个滚动面板，将文本区域放到滚动面板中，垂直滚动条总是显示，水平滚动条只有在需要时显示
+        JScrollPane panel = new JScrollPane(textArea2,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        panel.setLocation(200,100);//设置滚动面板的位置
+        panel.setSize(150,150);//设置滚动面板的大小
+        frame.add(panel);//    将滚动区域添加到窗体
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);//设置窗体可见
     }
 
 }
