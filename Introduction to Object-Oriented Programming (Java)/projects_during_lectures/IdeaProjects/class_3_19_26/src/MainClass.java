@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import
+Border border[] = new Border[7];//声明一个Border数组
+
 
 public class MainClass {
     public static void main1(String[] args) {
