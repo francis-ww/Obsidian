@@ -272,7 +272,7 @@ public class MainClass {
         frame.add(label1);//将标签组件添加到窗体上
 
         JLabel label3 = new JLabel("Provinces");
-        label3.setLocation(20,60);//设置标签组件位置
+        label3.setLocation(20,120);//设置标签组件位置
         label3.setSize(100,20);//设置标签组件大小
         frame.add(label3);//将标签组件添加到窗体上
 
