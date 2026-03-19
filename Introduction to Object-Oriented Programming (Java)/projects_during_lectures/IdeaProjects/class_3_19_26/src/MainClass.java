@@ -224,7 +224,7 @@ public class MainClass {
         passwordField.setLocation(200,40);//设置密码框的位置
         passwordField.setSize(150,30);//设置密码框的大小
         frame.add(passwordField);//将密码框添加到窗体
-        passwordField.setEchoChar("!");
+        passwordField.setEchoChar('!');
 
         JLabel label3 = new JLabel("文本区域：");//新建标签组件
         label3.setLocation(20,70);//设置标签组件位置
