@@ -271,7 +271,7 @@ public class MainClass {
         label1.setSize(100,20);//设置标签组件大小
         frame.add(label1);//将标签组件添加到窗体上
 
-        JLabel label3 = new JLabel("Provinces");
+        JLabel label3 = new JLabel("Provinces:");
         label3.setLocation(20,120);//设置标签组件位置
         label3.setSize(100,20);//设置标签组件大小
         frame.add(label3);//将标签组件添加到窗体上
@@ -284,6 +284,15 @@ public class MainClass {
         comboBox.setSize(150,30);//设置下拉列表组件的大小
         comboBox.setEditable(true);//设置下拉列表组件为可编辑
         frame.add(comboBox);//将下拉列表组件添加到窗体
+
+        JComboBox<String> comboBox2 = new JComboBox<String>();//新建一个下拉列表组件
+        for(int i = 0;i<provinces.length;i++) {//向下拉列表选项中添加组件
+            comboBox2.addItem(provinces[i]);
+        }
+        comboBox2.setLocation(20,140);//设置下拉列表组件的位置
+        comboBox2.setSize(150,30);//设置下拉列表组件的大小
+        comboBox2.setEditable(true);//设置下拉列表组件为可编辑
+        frame.add(comboBox2);//将下拉列表组件添加到窗体
 
         JLabel label2 = new JLabel("城市：");//新建标签组件
         label2.setLocation(200,20);//设置标签组件位置
