@@ -59,7 +59,7 @@ public class MainClass {
         constraints.gridx = 0;//设置组件添加位置列数
         constraints.gridy = 0;//设置组件添加位置行数
         constraints.gridwidth = 2;//设置组件在网格占用的列数
-        constraints.gridheight = 2;//设置组件在网格中占用的行数
+        constraints.gridheight = 1;//设置组件在网格中占用的行数
         panel.add(button1,constraints);//向panel中添加按钮1
 
         constraints.gridx = 2;//设置组件添加位置列数
@@ -68,7 +68,7 @@ public class MainClass {
         constraints.gridheight = 1;//设置组件在网格中占用的行数
         panel.add(button2,constraints);//向panel中添加按钮2
 
-        constraints.gridx = 2;//设置组件添加位置列数
+        constraints.gridx = 0;//设置组件添加位置列数
         constraints.gridy = 1;//设置组件添加位置行数
         constraints.gridwidth = 1;//设置组件在网格占用的列数
         constraints.gridheight = 1;//设置组件在网格中占用的行数
