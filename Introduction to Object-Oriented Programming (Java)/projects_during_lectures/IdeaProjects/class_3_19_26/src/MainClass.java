@@ -258,7 +258,7 @@ public class MainClass {
         frame.setVisible(true);//设置窗体可见
     }
 
-    public static void main(String[] args) {
+    public static void main6(String[] args) {
         String[] counties = {"中国","美国","俄罗斯","新加坡","英国","法国","德国","意套利"};
         String[] cities = {"北京","上海","广州","深圳","成都","武汉","南京","天津"};
         String[] provinces = {"Sichuan", "Hunan", "Guangdong", "Hubei", "Tibet", "Xinjiang"};
@@ -308,4 +308,28 @@ public class MainClass {
         frame.setVisible(true);//设置窗体可见
     }
 
+    public static void main(String[] args) {
+        String[] tabNames = {
+                "black","green","blue",
+                "red","yellow","pink"};
+        Color[] colorNames = {
+                Color.BLACK,Color.GREEN,Color.BLUE,
+                Color.RED,Color.YELLOW,Color.PINK};
+        JFrame frame = new JFrame("示例窗体");
+        //按默认方式创建页签面板
+        JTabbedPane tabs = new JTabbedPane();
+        //按定制方式创建页签面板
+        //JTabbedPane tabs = new JTabbedPane(JTabbedPane.BOTTOM,
+        //        JTabbedPane.SCROLL_TAB_LAYOUT);
+        for(int i = 0 ;i<6;i++) {
+            JPanel panel = new JPanel();
+            panel.setBackground(colorNames[i]);
+            tabs.addTab(tabNames[i], panel);
+        }
+        frame.add(tabs);
+        //设置窗体关闭行为，当用户点击窗体的关闭图标时，结束程序
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(250,250);//设置窗体的宽和高
+        frame.setVisible(true);//设置窗体可见
+    }
 }
