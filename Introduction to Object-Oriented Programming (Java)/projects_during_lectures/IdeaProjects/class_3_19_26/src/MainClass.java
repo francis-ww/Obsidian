@@ -380,6 +380,7 @@ public class MainClass {
 
         JMenuItem helpItem = new JMenuItem("help");
         fileMenu.add(helpItem);
+        menuBar.add(helpItem);
 
         //以下代码将创建一个具有打印预览和打印两个菜单项的子菜单
         JMenu childMenu = new JMenu("print");
