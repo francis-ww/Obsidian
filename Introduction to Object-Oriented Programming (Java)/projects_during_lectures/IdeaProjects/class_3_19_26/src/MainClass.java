@@ -378,7 +378,10 @@ public class MainClass {
         openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
         fileMenu.add(openItem);//将"open"菜单项添加到"File"菜单中
 
-        //以下代码将创建一个具有打印预览和打印两个菜单项的子菜单        
+        JMenuItem helpItem = new JMenuItem("help");
+        fileMenu.add(helpItem);
+
+        //以下代码将创建一个具有打印预览和打印两个菜单项的子菜单
         JMenu childMenu = new JMenu("print");
         JMenuItem childPrintPreview = new JMenuItem("print preview");//创建打印预菜单项
         JMenuItem childPrint = new JMenuItem("print");//创建打印菜单项
