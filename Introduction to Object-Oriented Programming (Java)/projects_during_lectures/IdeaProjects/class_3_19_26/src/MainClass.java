@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 
 public class MainClass {
     public static void main1(String[] args) {
@@ -106,7 +107,7 @@ public class MainClass {
         frame.setVisible(true);//显示窗体
     }
 
-    public static void main(String[] args) {
+    public static void main3(String[] args) {
         JPanel panel[]  = new JPanel[7];//声明一个JPanel数组
         Border border[] = new Border[7];//声明一个Border数组
 
@@ -135,6 +136,64 @@ public class MainClass {
         Border b1 = new CompoundBorder(new TitledBorder(("compoud")),
                 new LineBorder(Color.BLACK));
         b1 = new CompoundBorder(b1, new LineBorder(Color.BLACK));
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        JFrame frame= new JFrame("按钮示例");
+        frame.setSize(350,150);
+        frame.setLayout(new FlowLayout());//为窗体设置一个流式布局管理器
+
+        //创建普通按钮，将其放在窗体上
+        JButton button = new JButton("JButton");
+        frame.add(button);
+
+        //创建状态按钮，将其放在窗体上
+        JToggleButton buttonToggle = new JToggleButton("JToggleButton");
+        frame.add(buttonToggle);
+
+        //创建复选择按钮，将其放在窗体上
+        JCheckBox buttonCheckbox = new JCheckBox("JCheckBox");
+        frame.add(buttonCheckbox);
+
+        /*创建4个箭头按钮，将其放在窗体上*/
+        //创建向上箭头按钮
+        BasicArrowButton buttonUp = new BasicArrowButton(BasicArrowButton.NORTH);
+        //创建向下箭头按钮
+        BasicArrowButton buttonDown = new BasicArrowButton(BasicArrowButton.SOUTH);
+        //创建向左箭头按钮
+        BasicArrowButton buttonLeft = new BasicArrowButton(BasicArrowButton.WEST);
+        //创建向右箭头按钮
+        BasicArrowButton buttonRight = new BasicArrowButton(BasicArrowButton.EAST);
+        //创建面板组件
+        JPanel panel1 = new JPanel();
+        //为面板组件添加边框
+        panel1.setBorder(new TitledBorder("JArrowButton"));
+        //将4个箭头按钮组件添加到面板上
+        panel1.add(buttonUp);
+        panel1.add(buttonDown);
+        panel1.add(buttonRight);
+        panel1.add(buttonLeft);
+        //将添加了箭头按钮的面板组件添加到窗体中
+        frame.add(panel1);
+
+        /*创建单选按钮，将其放在窗体上*/
+        JRadioButton buttonRadio1 = new JRadioButton("choice1");
+        JRadioButton buttonRadio2 = new JRadioButton("choice2");
+        buttonRadio2.setSelected(true);//将单选按钮2设为选中状态
+        //创建单选按钮组，将两个单选按钮放在同一个组内
+        ButtonGroup group = new ButtonGroup();
+        group.add(buttonRadio1);
+        group.add(buttonRadio2);
+        //创建一个带边框的面板组件，将两个单选按钮放在面板组件内
+        JPanel panel2 = new JPanel();
+        panel2.setBorder(new TitledBorder("JRadioButton"));
+        panel2.add(buttonRadio1);
+        panel2.add(buttonRadio2);
+        //将添加了单选按钮的面板板组件添加到窗体中
+        frame.add(panel2);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
