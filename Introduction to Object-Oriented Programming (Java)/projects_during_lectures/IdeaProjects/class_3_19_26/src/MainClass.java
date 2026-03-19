@@ -169,6 +169,7 @@ public class MainClass {
         BasicArrowButton buttonRight = new BasicArrowButton(BasicArrowButton.EAST);
         //创建面板组件
         JPanel panel1 = new JPanel();
+        panel1.setLayout(new GridLayout());
         //为面板组件添加边框
         panel1.setBorder(new TitledBorder("JArrowButton"));
         //将4个箭头按钮组件添加到面板上
