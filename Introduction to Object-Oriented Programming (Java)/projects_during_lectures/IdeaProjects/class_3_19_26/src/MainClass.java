@@ -47,6 +47,8 @@ public class MainClass {
         panel.setLayout(layout);//设置panel的布局管理器为layout
         GridBagConstraints constraints = new GridBagConstraints();//新建约束条件
         constraints.fill = GridBagConstraints.BOTH;//组件填满网格
+        constraints.weightx = 1.0; // ✅ 新增：水平方向撑开
+        constraints.weighty = 1.0;
 
         JButton button1 = new JButton("按钮---1");//新建按钮1
         JButton button2 = new JButton("按钮---2");//新建按钮2
