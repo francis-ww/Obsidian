@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import
 
 public class MainClass {
     public static void main1(String[] args) {
