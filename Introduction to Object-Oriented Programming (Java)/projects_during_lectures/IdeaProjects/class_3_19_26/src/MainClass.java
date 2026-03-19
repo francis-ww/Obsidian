@@ -336,7 +336,7 @@ public class MainClass {
             tabs.addTab(tabNames[i], panel);
         }
         frame.add(tabs);
-        frame.add(com);
+        frame.add(com[8]);
         //设置窗体关闭行为，当用户点击窗体的关闭图标时，结束程序
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(250,250);//设置窗体的宽和高
