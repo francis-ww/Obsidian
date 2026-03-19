@@ -204,7 +204,7 @@ public class MainClass {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main5(String[] args) {
         JFrame frame = new JFrame("文本窗体");
         frame.setSize(400,300);//设置窗体的宽和高
         frame.setLayout(null);//使用绝对位置布局，不用布局管理器
@@ -239,7 +239,7 @@ public class MainClass {
         textArea1.setLocation(20,100);//设置文本区域的位置
         textArea1.setSize(150,150);//设置文本区域的大小
         frame.add(textArea1);//将文本区域添加到窗体
-        
+
         JLabel label4 = new JLabel("滚动文本域：");//新建标签组件
         label4.setLocation(200,70);//设置标签组件位置
         label4.setSize(100,20);//设置标签组件大小
@@ -253,6 +253,41 @@ public class MainClass {
         panel.setLocation(200,100);//设置滚动面板的位置
         panel.setSize(150,150);//设置滚动面板的大小
         frame.add(panel);//    将滚动区域添加到窗体
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);//设置窗体可见
+    }
+
+    public static void main(String[] args) {
+        String[] counties = {"中国","美国","俄罗斯","新加坡","英国","法国","德国","意套利"};
+        String[] cities = {"北京","上海","广州","深圳","成都","武汉","南京","天津"};
+        JFrame frame = new JFrame("列表窗体");
+        frame.setSize(400,300);//设置窗体的宽和高
+        frame.setLayout(null);//使用绝对位置布局，不用布局管理器
+
+        JLabel label1 = new JLabel("国家：");//新建标签组件
+        label1.setLocation(20,20);//设置标签组件位置
+        label1.setSize(100,20);//设置标签组件大小
+        frame.add(label1);//将标签组件添加到窗体上
+
+        JComboBox<String> comboBox = new JComboBox<String>();//新建一个下拉列表组件
+        for(int i = 0;i<counties.length;i++) {//向下拉列表选项中添加组件
+            comboBox.addItem(counties[i]);
+        }
+        comboBox.setLocation(20,40);//设置下拉列表组件的位置
+        comboBox.setSize(150,30);//设置下拉列表组件的大小
+        comboBox.setEditable(true);//设置下拉列表组件为可编辑
+        frame.add(comboBox);//将下拉列表组件添加到窗体
+
+        JLabel label2 = new JLabel("城市：");//新建标签组件
+        label2.setLocation(200,20);//设置标签组件位置
+        label2.setSize(100,20);//设置标签组件大小
+        frame.add(label2);//将标签组件添加到窗体上
+
+        JList<String> list = new JList<String>(cities);//新建列表组件
+        list.setLocation(200,40);//设置列表组件的位置
+        list.setSize(150,200);//设置列表组件的大小
+        frame.add(list);//将列表组件添加到窗体
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);//设置窗体可见
