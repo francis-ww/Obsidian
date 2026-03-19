@@ -318,9 +318,9 @@ public class MainClass {
         Component[] com = new Component[6];
         com[0] = new JButton();
         com[1] = new JCheckBox();
-        com[2] = new JCheckBox();
-        com[3] = new JCheckBox();
-        com[4] = new JCheckBox();
+        com[2] = new JRadioButton();
+        com[3] = new JTextField();
+        com[4] = new JTextArea();
         com[5] = new JCheckBox();
         JFrame frame = new JFrame("示例窗体");
         //按默认方式创建页签面板
