@@ -357,5 +357,44 @@ public class MainClass {
         frame.setVisible(true);//设置窗体可见
     }
 
-       
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("简易记事本 (带状态栏版)");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 450);
+
+        // 1. 文本输入区
+        JTextArea textArea = new JTextArea();
+        textArea.setFont(new Font("Microsoft YaHei", Font.PLAIN, 16));
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        // 2. 菜单栏 (保持不变)
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("文件(F)");
+        fileMenu.add(new JMenuItem("新建"));
+        fileMenu.add(new JMenuItem("保存"));
+        menuBar.add(fileMenu);
+        frame.setJMenuBar(menuBar);
+
+        // 3. --- 新增：底部状态栏 ---
+        JPanel statusPanel = new JPanel();
+        // 设置边框，让状态栏看起来有立体凹陷感
+        statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        frame.add(statusPanel, BorderLayout.SOUTH);
+        statusPanel.setPreferredSize(new Dimension(frame.getWidth(), 25));
+        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
+
+        // 状态栏文字
+        JLabel statusLabel = new JLabel(" 状态: 就绪 | 字符数: 0");
+        statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        statusPanel.add(statusLabel);
+
+        // 4. (进阶) 实时更新字符数：监听键盘输入
+        textArea.addCaretListener(e -> {
+            int length = textArea.getText().length();
+            statusLabel.setText(" 状态: 正在编辑 | 字符数: " + length);
+        });
+
+        frame.setVisible(true);
+    }
 }
