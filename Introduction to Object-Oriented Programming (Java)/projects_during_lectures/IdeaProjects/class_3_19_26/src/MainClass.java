@@ -315,13 +315,15 @@ public class MainClass {
         Color[] colorNames = {
                 Color.BLACK,Color.GREEN,Color.BLUE,
                 Color.RED,Color.YELLOW,Color.PINK,Color.GRAY,Color.CYAN};
-        Component[] com = new Component[6];
+        Component[] com = new Component[8];
         com[0] = new JButton();
         com[1] = new JCheckBox();
         com[2] = new JRadioButton();
         com[3] = new JTextField();
         com[4] = new JTextArea();
         com[5] = new JCheckBox();
+        com[6] = new JCheckBox();
+        com[7] = new JCheckBox();
         JFrame frame = new JFrame("示例窗体");
         //按默认方式创建页签面板
         JTabbedPane tabs = new JTabbedPane();
