@@ -1,8 +1,7 @@
 - **Classes and Objects**
-- **Constructors**
-- **Access Modifiers** 
+- **Constructors** **构造方法**
+- **Access Modifiers** **访问权限**
 - **Inheritance**
-- **Polymorphism** 多态 (Most important)
+- **Polymorphism** **多态** (Most important)
 - **Abstraction and Interfaces**
-
 - **Memory Analysis**
