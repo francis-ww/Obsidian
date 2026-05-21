@@ -36,7 +36,7 @@
      * in 1386, member of Parliament from Kent (Patron: John of Gaunt)
      Three Periods of works
          1. from 1372 to 1386, influence of French literature: *The Book of Duchess* - an elegy on the death of the first wife of John of Gaunt.
-         2. from 1372 to 1386, influence of the Italian literature: *Troilus and Criseyde* - used Boccacio' s story freely to reflect the ideal of his age
+         2. from 1372 to 1386, influence of the Italian literature: ***Troilus and Criseyde*** - used Boccacio' s story freely to reflect the ideal of his age
          3. the last fifteen years of his life: *The Canterbury Tales* (unfinished) - a general prologue and twenty four tales that are connected by "links", 30 pilgrims in total (Chaucer himself included)
         
      Significance
@@ -44,3 +44,17 @@
          **Dramatic Structure:** Unlike _The Decameron_, stories are cleverly woven together by links; they are related to the personalities, private lives, and social status of the tellers.
          **Humor and Satire:** Chaucer uses gentle satire and mild irony for most, but his satire is the bitterest in the portrayal of corrupt church figures like the pardoner.
          **Contribution to English:** By choosing the London dialect over French or Latin, Chaucer proved English is a beautiful language, greatly increasing its prestige.
+
+# Lecture 
+## The Prologue
+fall and shoot(move quickly)
+engendering (blossom)
+shoots (new plants)
+prick (stimulate)
+wend (go)
+Most written in iambic pentameter （五音步 抑扬格）Heroic Couplet
+Prioress
+     Pretentious Refinement
+     Overly Sentimental
+     Chaucer used kind irony on her, no straightforward hatred
+ Chaucer's intellectual sources: courtly love(worship, service, fidelity, secrecy), idealized love, comic bawdry
