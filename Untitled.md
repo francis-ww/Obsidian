@@ -1,0 +1,3 @@
+*   **语言技能 (Languages)**：中文 (母语，对西南官话/四川方言及各地域口音有深刻的社会语言学感知)；英语 (**大学英语六级 608 分，位列全国前 1-2%**，具备无障碍的全球技术团队协作、专业音频转录及地道语音输出能力)；西班牙语 (初级/A2 推进中)。
+*   **语言学与音频素养 (Linguistic & Audio)**：高精度语音转录 (Transcription)、断句与语流质量控制 (QC)、语音韵律标注 (Prosody, Intonation & Stress Annotation)、真实世界复杂/带噪音口音辨析。
+*   **技术与工具 (Technical Tools)**：Git / GitHub (熟练版本控制与多端冲突解决)；Linux CLI (命令行操作)；Docker 容器基础；Java / Python 基础代码阅读与结构化数据处理；Markdown (Obsidian 深度用户)。
