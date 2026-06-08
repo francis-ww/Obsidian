@@ -1,7 +1,7 @@
 - **Classes and Objects**
-- **Constructors** **构造方法**
+- **Constructors  构造方法
 - **Access Modifiers** **访问权限**
 - **Inheritance**
 - **Polymorphism** **多态** (**Most important)
-- **Abstraction and Interfaces** chou'xiang'he'jie
+- **Abstraction and Interfaces** 抽象和接口
 - **Memory Analysis**
