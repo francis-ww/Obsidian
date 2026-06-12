@@ -1,4 +1,2 @@
-package PACKAGE_NAME;
+public interface InterfaceA { void methodA(); } // A接口有methodA [cite: 68]
 
-public interface InterfaceA {
-}
