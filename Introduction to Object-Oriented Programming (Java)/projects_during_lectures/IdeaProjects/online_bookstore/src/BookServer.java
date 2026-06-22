@@ -13,7 +13,7 @@ public class BookServer {
     // ⚠️请将这里的密码修改为你电脑上真实的 MySQL 密码
     private static final String DB_URL = "jdbc:mysql://localhost:3306/online_bookstore?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "你的数据库密码";
+    private static final String DB_PASS = "948377";
 
     public static void main(String[] args) throws Exception {
         // 创建一个监听 8080 端口的轻量级 HTTP 服务器
