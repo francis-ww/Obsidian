@@ -1,0 +1,4 @@
+USE online_bookstore;
+
+INSERT INTO `books` (`title`, `author`, `price`, `stock`, `description`) 
+VALUES ('Joanna Newsom: Ys 限量版双黑胶', 'Joanna Newsom', 320.00, 5, '独立民谣珍藏黑胶，艺术流行（Art-pop）传世之作。');
