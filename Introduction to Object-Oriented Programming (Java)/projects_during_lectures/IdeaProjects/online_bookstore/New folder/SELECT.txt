@@ -1,0 +1,3 @@
+SELECT * FROM books WHERE title LIKE '%长笛%';
+
+SELECT book_id, title, stock FROM books WHERE stock < 5;
