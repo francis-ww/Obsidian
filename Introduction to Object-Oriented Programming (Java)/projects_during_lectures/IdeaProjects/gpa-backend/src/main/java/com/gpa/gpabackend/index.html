@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA 智能学业管理系统 Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --sidebar-w: 260px;
+            --accent: #0071e3;
+            --accent-dim: rgba(0,113,227,0.12);
+            --scu: #c0143c;
+            --glass-bg: rgba(255,255,255,0.72);
+            --glass-border: rgba(255,255,255,0.55);
+            --glass-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04);
+            --sidebar-bg: rgba(245,245,247,0.92);
+            --body-bg: #f2f2f7;
+            --text: #1d1d1f;
+            --text-2: #515154;
+            --text-3: #86868b;
+            --divider: rgba(0,0,0,0.08);
+            --radius-sm: 10px;
+            --radius: 16px;
+            --radius-lg: 20px;
+            --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+            --tab-h: 56px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --glass-bg: rgba(30,30,32,0.82);
+                --glass-border: rgba(255,255,255,0.10);
+                --glass-shadow: 0 8px 32px rgba(0,0,0,0.32), 0 1.5px 4px rgba(0,0,0,0.18);
+                --sidebar-bg: rgba(22,22,24,0.95);
+                --body-bg: #111113;
+                --text: #f5f5f7;
+                --text-2: #a1a1a6;
+                --text-3: #636366;
+                --divider: rgba(255,255,255,0.09);
+            }
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--body-bg);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+            font-size: 14px;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            background: var(--sidebar-bg);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-right: 1px solid var(--divider);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; bottom: 0; left: 0;
+            padding: 28px 16px 24px;
+            z-index: 300;
+            transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; padding: 0 8px; margin-bottom: 32px; }
+        .logo-icon {
+            width: 32px; height: 32px;
+            background: linear-gradient(145deg, #0071e3, #0ea5e9);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 14px; flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,113,227,0.35);
+        }
+        .logo-text { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; }
+        .logo-sub  { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+
+        .user-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px; margin-bottom: 24px;
+        }
+        .user-status { font-size: 11px; color: var(--text-3); margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); flex-shrink: 0; }
+        .dot.active { background: #30d158; box-shadow: 0 0 6px #30d15888; }
+        .user-name { font-size: 13px; font-weight: 500; }
+
+        .nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+        .nav-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 9px 12px; border-radius: var(--radius-sm);
+            color: var(--text-2); font-size: 13px; font-weight: 450;
+            cursor: pointer; transition: var(--transition);
+        }
+        .nav-item i { width: 16px; text-align: center; font-size: 13px; }
+        .nav-item:hover { background: rgba(0,0,0,0.04); color: var(--text); }
+        .nav-item.active { background: var(--accent-dim); color: var(--accent); font-weight: 500; }
+        @media (prefers-color-scheme: dark) {
+            .nav-item:hover { background: rgba(255,255,255,0.05); }
+        }
+
+        .sidebar-footer { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+
+        .sidebar-close {
+            display: none; position: absolute; top: 20px; right: 16px;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: rgba(0,0,0,0.06); border: none; cursor: pointer;
+            align-items: center; justify-content: center;
+            color: var(--text-3); font-size: 13px; transition: var(--transition);
+        }
+        .sidebar-close:hover { background: rgba(0,0,0,0.10); }
+
+        .sidebar-overlay {
+            display: none; position: fixed; inset: 0; z-index: 299;
+            background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+        }
+
+        .topbar {
+            display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 52px;
+            background: var(--sidebar-bg); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--divider); align-items: center; padding: 0 16px; gap: 12px;
+        }
+        .topbar-menu-btn {
+            width: 34px; height: 34px; border-radius: 8px; background: none; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; color: var(--text-2); font-size: 16px; transition: var(--transition);
+        }
+        .topbar-menu-btn:hover { background: rgba(0,0,0,0.05); }
+        .topbar-logo { display: flex; align-items: center; gap: 8px; flex: 1; }
+        .topbar-logo-icon {
+            width: 26px; height: 26px; border-radius: 6px; background: linear-gradient(145deg, #0071e3, #0ea5e9);
+            display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px;
+        }
+        .topbar-logo-text { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; }
+
+        .tabbar {
+            display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; height: var(--tab-h);
+            background: var(--sidebar-bg); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-top: 1px solid var(--divider); align-items: stretch;
+        }
+        .tab-item {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+            cursor: pointer; color: var(--text-3); transition: color var(--transition); font-size: 10px; font-weight: 500; letter-spacing: 0.02em;
+        }
+        .tab-item i { font-size: 18px; }
+        .tab-item.active { color: var(--accent); }
+
+        .main { margin-left: var(--sidebar-w); flex: 1; padding: 40px 40px 60px; min-width: 0; }
+        .page-header { margin-bottom: 36px; }
+        .page-header h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.5px; }
+        .page-header p { font-size: 13px; color: var(--text-3); margin-top: 4px; }
+
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+        .stat {
+            background: var(--glass-bg); backdrop-filter: saturate(200%) blur(20px); -webkit-backdrop-filter: saturate(200%) blur(20px);
+            border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--glass-shadow);
+            position: relative; overflow: hidden; transition: transform var(--transition), box-shadow var(--transition);
+        }
+        .stat:hover { transform: translateY(-1px); box-shadow: 0 12px 40px rgba(0,0,0,0.10); }
+        .stat.hero     { background: linear-gradient(135deg,#0071e3,#0ea5e9); border-color:transparent; color:#fff; }
+        .stat.hero-scu { background: linear-gradient(135deg,#c0143c,#e11d48); border-color:transparent; color:#fff; }
+        .stat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin-bottom: 8px; }
+        .stat.hero .stat-label, .stat.hero-scu .stat-label { color: rgba(255,255,255,0.65); }
+        .stat-value { font-size: 30px; font-weight: 300; letter-spacing: -1px; font-variant-numeric: tabular-nums; line-height: 1; }
+        .stat-hint { font-size: 11px; color: var(--text-3); margin-top: 7px; }
+        .stat.hero .stat-hint, .stat.hero-scu .stat-hint { color: rgba(255,255,255,0.55); }
+        .stat-deco { position: absolute; right: -16px; bottom: -16px; font-size: 68px; opacity: 0.06; pointer-events: none; }
+        .stat.hero .stat-deco, .stat.hero-scu .stat-deco { opacity: 0.12; color:#fff; }
+
+        .layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
+
+        .card { background: var(--glass-bg); backdrop-filter: saturate(200%) blur(20px); -webkit-backdrop-filter: saturate(200%) blur(20px); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 22px; box-shadow: var(--glass-shadow); margin-bottom: 20px; }
+        .card-title { font-size: 13px; font-weight: 600; letter-spacing: -0.1px; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .card-title-icon { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+        .icon-blue   { background: rgba(0,113,227,0.12); color: var(--accent); }
+        .icon-green  { background: rgba(48,209,88,0.12);  color: #30d158; }
+        .icon-amber  { background: rgba(255,159,10,0.12); color: #ff9f0a; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: 12px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group.wide { grid-column: 1 / -1; }
+        .form-group label { font-size: 11px; font-weight: 500; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; }
+
+        input, select { padding: 9px 12px; background: rgba(0,0,0,0.03); border: 1px solid var(--divider); border-radius: var(--radius-sm); font-family: inherit; font-size: 13px; color: var(--text); transition: var(--transition); -webkit-appearance: none; appearance: none; width: 100%; }
+        @media (prefers-color-scheme: dark) { input, select { background: rgba(255,255,255,0.05); } }
+        input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,113,227,0.15); background: rgba(0,113,227,0.03); }
+        input::placeholder { color: var(--text-3); }
+
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 18px; border-radius: var(--radius-sm); font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: var(--transition); white-space: nowrap; }
+        .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(0,113,227,0.30); }
+        .btn-primary:hover   { background: #0077ed; box-shadow: 0 4px 14px rgba(0,113,227,0.40); }
+        .btn-primary:active  { transform: scale(0.98); }
+        .btn-ghost { background: transparent; color: var(--text-2); border: 1px solid var(--divider); }
+        .btn-ghost:hover { background: rgba(0,0,0,0.04); color: var(--text); }
+        .btn-danger-ghost { background: transparent; color: #ff3b30; border: none; padding: 6px 9px; font-size: 12px; cursor: pointer; border-radius: 6px; transition: var(--transition); }
+        .btn-danger-ghost:hover { background: rgba(255,59,48,0.08); }
+        .btn-sidebar { width: 100%; padding: 9px 14px; font-size: 13px; font-weight: 500; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; border: none; transition: var(--transition); }
+        .btn-sidebar-primary   { background: var(--accent); color: #fff; }
+        .btn-sidebar-primary:hover { background: #0077ed; }
+        .btn-sidebar-secondary { background: transparent; border: 1px solid var(--divider); color: var(--text-2); }
+        .btn-sidebar-secondary:hover { background: rgba(0,0,0,0.04); color: var(--text); }
+
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th { padding: 8px 12px; font-size: 11px; font-weight: 500; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; text-align: left; border-bottom: 1px solid var(--divider); white-space: nowrap; }
+        th.sort { cursor: pointer; user-select: none; }
+        th.sort:hover { color: var(--text); }
+        th.sort-active { color: var(--accent); }
+        td { padding: 10px 12px; font-size: 13px; color: var(--text-2); border-bottom: 1px solid var(--divider); vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tbody tr { transition: background var(--transition); }
+        tbody tr:hover td { background: rgba(0,0,0,0.02); }
+        @media (prefers-color-scheme: dark) { tbody tr:hover td { background: rgba(255,255,255,0.03); } }
+
+        td select { padding: 4px 8px; font-size: 12px; border-radius: 6px; border: 1px solid var(--divider); background: var(--glass-bg); color: var(--text); width: auto; min-width: 80px; }
+        td select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(0,113,227,0.18); }
+
+        [contenteditable=true]:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-radius: 4px; background: rgba(0,113,227,0.05); }
+
+        .course-cards { display: none; flex-direction: column; gap: 10px; }
+        .course-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .course-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .course-card-name { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; min-width: 0; border: none; background: none; padding: 0; font-family: inherit; outline: none; }
+        .course-card-name:focus { border-bottom: 1.5px solid var(--accent); }
+        .course-card-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin-bottom: 10px; }
+        .course-card-field { display: flex; flex-direction: column; gap: 3px; }
+        .course-card-field label { font-size: 10px; font-weight: 500; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
+        .course-card-field select, .course-card-field input { padding: 6px 10px; font-size: 13px; border-radius: 8px; }
+        .course-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--divider); padding-top: 10px; margin-top: 2px; }
+
+        .tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+        .tag-a { background: rgba(48,209,88,0.12); color: #25a244; }
+        .tag-b { background: rgba(0,113,227,0.10); color: #0071e3; }
+        .tag-c { background: rgba(255,159,10,0.12); color: #c07800; }
+        .tag-f { background: rgba(255,59,48,0.10);  color: #cc2f27; }
+        @media (prefers-color-scheme: dark) { .tag-a { color: #30d158; } .tag-b { color: #409cff; } .tag-c { color: #ff9f0a; } .tag-f { color: #ff453a; } }
+
+        .info-item { padding: 13px 0; border-bottom: 1px solid var(--divider); display: flex; flex-direction: column; gap: 4px; }
+        .info-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .info-key  { font-size: 11px; font-weight: 500; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
+        .info-val  { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+        .overlay { display: none; position: fixed; inset: 0; z-index: 900; background: rgba(0,0,0,0.30); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -48%); z-index: 1000; width: min(420px, 92vw); background: var(--glass-bg); backdrop-filter: saturate(200%) blur(28px); -webkit-backdrop-filter: saturate(200%) blur(28px); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 4px 10px -6px rgb(0 0 0 / 0.1); padding: 28px; animation: slideUp 0.22s cubic-bezier(0.34,1.56,0.64,1); }
+        @keyframes slideUp { from { opacity:0; transform:translate(-50%,-44%); } to   { opacity:1; transform:translate(-50%,-48%); } }
+        .modal-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; }
+        .modal-title { font-size: 17px; font-weight: 600; letter-spacing: -0.2px; }
+        .modal-close { width: 26px; height: 26px; border-radius: 50%; background: rgba(0,0,0,0.06); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-3); font-size: 12px; transition: var(--transition); }
+        .modal-close:hover { background: rgba(0,0,0,0.10); color: var(--text); }
+        .modal-field { margin-bottom: 14px; display: flex; flex-direction: column; gap: 5px; }
+        .modal-field label { font-size: 11px; font-weight: 500; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
+        .danger-zone { margin-top: 6px; border: 1px solid rgba(255,59,48,0.25); border-radius: var(--radius-sm); padding: 14px; background: rgba(255,59,48,0.04); }
+        .danger-zone-label { font-size: 11px; font-weight: 600; color: #ff3b30; margin-bottom: 6px; }
+        .danger-zone p { font-size: 12px; color: var(--text-3); margin-bottom: 10px; line-height: 1.5; }
+
+        .empty { text-align: center; padding: 40px 20px; color: var(--text-3); }
+        .empty i { font-size: 30px; margin-bottom: 10px; opacity: 0.4; display: block; }
+        .empty p { font-size: 13px; }
+
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); padding-top: 20px; }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-close { display: flex; }
+            .sidebar-overlay.open { display: block; }
+            .topbar { display: flex; }
+            .tabbar  { display: flex; }
+            .main { margin-left: 0; padding: 16px 16px calc(var(--tab-h) + 16px); padding-top: calc(52px + 16px); }
+            .page-header { margin-bottom: 20px; }
+            .page-header h1 { font-size: 22px; }
+            .stats { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+            .stat { padding: 14px 16px; border-radius: var(--radius-sm); }
+            .stat-value { font-size: 24px; }
+            .stat-deco { font-size: 52px; }
+            .layout { grid-template-columns: 1fr; gap: 0; }
+            .table-wrap { display: none; }
+            .course-cards { display: flex; }
+            .card { padding: 16px; border-radius: var(--radius-sm); }
+            .form-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1100px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-close { display: flex; }
+            .sidebar-overlay.open { display: block; }
+            .topbar { display: flex; }
+            .main { margin-left: 0; padding-top: calc(52px + 28px); }
+            .layout { grid-template-columns: 1fr 300px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" onclick="closeSidebar()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>
+            <div class="logo-text">GPA 智能看板</div>
+            <div class="logo-sub">四川大学体系对齐</div>
+        </div>
+    </div>
+    <div class="user-card">
+        <div class="user-status"><span class="dot" id="dot"></span><span id="status-text">未登录匿名模式</span></div>
+        <div class="user-name" id="user-name">访客大盘</div>
+    </div>
+    <nav class="nav">
+        <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i> 学业总览</div>
+        <div class="nav-item" id="nav-settings" style="display:none;" onclick="openSettings()">
+            <i class="fa-solid fa-person-circle-check"></i> 账户安全设置
+        </div>
+    </nav>
+    <div class="sidebar-footer" id="sidebar-actions">
+        <button class="btn-sidebar btn-sidebar-primary" onclick="openAuth('login')">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> 登录云端账户
+        </button>
+        <button class="btn-sidebar btn-sidebar-secondary" onclick="openAuth('register')">
+            <i class="fa-solid fa-user-plus"></i> 创建云端账户
+        </button>
+    </div>
+</aside>
+
+<header class="topbar">
+    <button class="topbar-menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></button>
+    <div class="topbar-logo">
+        <div class="topbar-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <span class="topbar-logo-text">GPA 数据分析</span>
+    </div>
+</header>
+
+<main class="main">
+    <header class="page-header">
+        <h1 id="page-title">学业总览</h1>
+        <p>德制（巴伐利亚）标准算法与四川大学阶梯均绩实时分析</p>
+    </header>
+
+    <div class="stats">
+        <div class="stat hero">
+            <div class="stat-label">巴伐利亚总绩点</div>
+            <div class="stat-value" id="german-gpa">5.00</div>
+            <div class="stat-hint">标准德制 (1.0最高)</div>
+            <i class="fa-solid fa-award stat-deco"></i>
+        </div>
+        <div class="stat hero-scu">
+            <div class="stat-label">四川大学平均绩点</div>
+            <div class="stat-value" id="scu-gpa">0.000</div>
+            <div class="stat-hint">官方 4.0 阶梯制均绩</div>
+            <i class="fa-solid fa-building-columns stat-deco"></i>
+        </div>
+        <div class="stat">
+            <div class="stat-label">全科加权平均分</div>
+            <div class="stat-value" id="avg-score">—</div>
+            <div class="stat-hint">学分百分制加权</div>
+            <i class="fa-solid fa-chart-line stat-deco"></i>
+        </div>
+        <div class="stat">
+            <div class="stat-label">已修读总学分</div>
+            <div class="stat-value" id="total-credits">0.00</div>
+            <div class="stat-hint">已授信学科总学分</div>
+            <i class="fa-solid fa-layer-group stat-deco"></i>
+        </div>
+    </div>
+
+    <div class="layout">
+        <div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-title-icon icon-blue"><i class="fa-solid fa-plus"></i></span>
+                    添加课程明细
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>学期</label>
+                        <select id="f-semester">
+                            <option value="24秋">2024 秋</option>
+                            <option value="25春">2025 春</option>
+                            <option value="25秋">2025 秋</option>
+                            <option value="26春">2026 春</option>
+                        </select>
+                    </div>
+                    <div class="form-group wide">
+                        <label>课程名称 / Module Title</label>
+                        <input type="text" id="f-name" placeholder="请输入课程官方完整名称">
+                    </div>
+                    <div class="form-group">
+                        <label>课程属性分类</label>
+                        <select id="f-type">
+                            <option value="COMPULSORY">必修</option>
+                            <option value="ELECTIVE">选修</option>
+                            <option value="OPTIONAL">任选</option>
+                            <option value="MINOR_COMPULSORY">辅修必修</option>
+                            <option value="MINOR_ELECTIVE">辅修选修</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>百分制成绩</label>
+                        <input type="number" id="f-score" placeholder="85" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label>标准授信学分</label>
+                        <input type="number" id="f-credit" placeholder="3" step="0.5" min="0">
+                    </div>
+                </div>
+                <button class="btn btn-primary" style="margin-top:16px;width:100%;" onclick="addCourse()">
+                    <i class="fa-solid fa-bolt-lightning"></i> 保存并执行云端同步
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="card-title" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div>
+                        <span class="card-title-icon icon-green"><i class="fa-solid fa-list-check"></i></span>
+                        学科档案清单 (支持单元格内联动态更新)
+                    </div>
+                    <button class="btn btn-ghost" style="font-size: 12px; padding: 6px 12px; gap: 5px; border-color: var(--accent); color: var(--accent);" onclick="exportTranscriptPDF()">
+                        <i class="fa-solid fa-file-pdf"></i> 导出 PDF 成绩单
+                    </button>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="sort" id="th-semester" onclick="doSort('semester')">学期 <i class="fa-solid fa-sort" style="font-size:9px;opacity:0.5"></i></th>
+                            <th class="sort" id="th-name" onclick="doSort('name')">课程名称明细 <i class="fa-solid fa-sort" style="font-size:9px;opacity:0.5"></i></th>
+                            <th>属性</th>
+                            <th>原始分数 (可改)</th>
+                            <th>川大绩点</th>
+                            <th>授信学分 (可改)</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+
+                <div class="course-cards" id="course-cards"></div>
+
+                <div id="empty-state" class="empty" style="display:none">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <p>暂无学科档案，请在上方录入您的第一门课程</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-title-icon icon-amber"><i class="fa-solid fa-circle-info"></i></span>
+                    核心核算标准指南
+                </div>
+                <div class="info-item">
+                    <div class="info-key">德制绩点核算 (巴伐利亚)</div>
+                    <div class="info-val">标准核算公式：<code style="background:rgba(0,0,0,0.04);padding:1px 4px;border-radius:4px;">1 + 3 × (100 - 分数) / 40</code>，核算区间为 1.0–5.0。</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-key">四川大学官方均绩</div>
+                    <div class="info-val">分段阶梯映射，90分及以上无缝对齐 4.0 满分绩点，不及格学科以 0.0 计。</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-key">单元格内联更新</div>
+                    <div class="info-val">清单内学期与属性支持动态下拉菜单变换；双击成绩与学分支持无感局部异步刷写。</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-key">弹性数据安全性</div>
+                    <div class="info-val">未授权匿名模式下数据本地持久化。登录后启动强安全云端同步，提供多端离线容灾防护。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<nav class="tabbar">
+    <div class="tab-item active">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>指标总览</span>
+    </div>
+    <div class="tab-item" onclick="openAuth('login')" id="tab-login">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        <span>账户登录</span>
+    </div>
+    <div class="tab-item" id="tab-settings" style="display:none;" onclick="openSettings()">
+        <i class="fa-solid fa-person-circle-check"></i>
+        <span>安全中心</span>
+    </div>
+</nav>
+
+<div class="overlay" id="overlay" onclick="closeModal()"></div>
+
+<div class="modal" id="auth-modal">
+    <div class="modal-head">
+        <span class="modal-title" id="auth-title">账户身份认证</span>
+        <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-field">
+        <label>云端账户名称</label>
+        <input type="text" id="auth-user" placeholder="请输入您的账户代号">
+    </div>
+    <div class="modal-field">
+        <label>数字认证密码</label>
+        <input type="password" id="auth-pass" placeholder="请输入认证密码">
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:6px;" onclick="handleAuth()">完成安全认证</button>
+</div>
+
+<div class="modal" id="settings-modal">
+    <div class="modal-head">
+        <span class="modal-title">账户安全配置中心</span>
+        <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="border:1px solid var(--divider);border-radius:var(--radius-sm);padding:14px;display:flex;flex-direction:column;gap:8px;">
+            <div class="info-key">修改云端账户名称 (Rename)</div>
+            <input type="text" id="new-user" placeholder="新账户代号">
+            <button class="btn btn-ghost" style="align-self:flex-start;font-size:12px;padding:6px 14px;" onclick="doRename()">确认保存名称</button>
+        </div>
+        <div style="border:1px solid var(--divider);border-radius:var(--radius-sm);padding:14px;display:flex;flex-direction:column;gap:8px;">
+            <div class="info-key">修改云端登录密码 (Password)</div>
+            <input type="password" id="old-pass" placeholder="请输入当前旧密码">
+            <input type="password" id="new-pass" placeholder="请输入高强度新密码" style="margin-top:6px;">
+            <button class="btn btn-ghost" style="align-self:flex-start;font-size:12px;padding:6px 14px;" onclick="doChangePass()">确认更新密钥</button>
+        </div>
+        <div class="danger-zone">
+            <div class="danger-zone-label">⚠️ 危险注销区域</div>
+            <p>确认注销后，云端物理服务器存储的全部学科档案配置将永久擦除，且无法恢复。</p>
+            <button class="btn-danger-ghost" onclick="doDeleteUser()"><i class="fa-solid fa-trash"></i> 彻底注销云端身份</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API = '/api/gpa';
+    let mode = 'guest', user = null, courses = [];
+    let sortField = 'semester', sortDir = 'asc';
+
+    const typeMap = {
+        COMPULSORY:'必修', ELECTIVE:'选修', OPTIONAL:'任选',
+        MINOR_COMPULSORY:'辅修必修', MINOR_ELECTIVE:'辅修选修'
+    };
+    const semOptions = ['24秋','25春','25秋','26春'];
+    const semLabels  = {'24秋':'2024 秋','25春':'2025 春','25秋':'2025 秋','26春':'2026 春'};
+
+    window.onload = () => {
+        const saved = localStorage.getItem('gpa_user');
+        if (saved) { user = saved; mode = 'cloud'; setUICloud(); loadCloud(); }
+        else loadGuest();
+    };
+
+    function loadGuest() {
+        const d = localStorage.getItem('gpa_guest');
+        courses = d ? JSON.parse(d) : [];
+        render();
+    }
+    function loadCloud() {
+        fetch(`${API}/data?user=${user}`)
+            .then(r => r.json())
+            .then(d => { courses = d.courses || (Array.isArray(d) ? d : []); render(); })
+            .catch(() => { const b = localStorage.getItem('gpa_bak_'+user); courses = b ? JSON.parse(b) : []; render(); });
+    }
+
+    function sync(skipRender = false) {
+        if (mode === 'guest') {
+            localStorage.setItem('gpa_guest', JSON.stringify(courses));
+            if(!skipRender) render();
+            return;
+        }
+        localStorage.setItem('gpa_bak_'+user, JSON.stringify(courses));
+        fetch(`${API}/save?user=${user}`, {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ semestersPool: semOptions, courses })
+        }).then(() => { if(!skipRender) render(); });
+    }
+
+    function addCourse() {
+        const semester = document.getElementById('f-semester').value;
+        const name     = document.getElementById('f-name').value.trim();
+        const type     = document.getElementById('f-type').value;
+        const score    = parseFloat(document.getElementById('f-score').value);
+        const credit   = parseFloat(document.getElementById('f-credit').value);
+        if (!name || isNaN(score) || isNaN(credit)) return alert('请填写完整的课程信息');
+        courses.push({ id: Date.now(), semester, name, type, score, credit });
+        document.getElementById('f-name').value = '';
+        document.getElementById('f-score').value = '';
+        document.getElementById('f-credit').value = '';
+        sync();
+    }
+    function del(id) { courses = courses.filter(c => c.id !== id); sync(); }
+
+    function updateField(id, field, val, triggerReRender = true) {
+        const c = courses.find(x => x.id === id);
+        if (!c) return;
+        if (field === 'score' || field === 'credit') {
+            val = parseFloat(val);
+            if (isNaN(val) || val < 0 || (field === 'score' && val > 100)) { alert('请输入有效数值'); render(); return; }
+        } else {
+            val = val.toString().trim();
+            if (!val) { alert('内容不能为空'); render(); return; }
+        }
+        if (c[field] !== val) {
+            c[field] = val;
+            sync(!triggerReRender);
+            if(!triggerReRender) recalculateStatsOnly();
+        }
+    }
+
+    function gpaGerman(s) {
+        if (s >= 100) return 1.0;
+        if (s < 60) return 5.0;
+        return Math.max(1.0, Math.min(4.0, 1 + 3*(100-s)/40));
+    }
+    function gpaSCU(s) {
+        if (s < 60) return 0;
+        if (s == 60) return 1.0; if (s <= 62) return 1.3; if (s <= 65) return 1.7;
+        if (s <= 69) return 2.0; if (s <= 72) return 2.3; if (s <= 75) return 2.7;
+        if (s <= 79) return 3.0; if (s <= 84) return 3.3; if (s <= 89) return 3.7;
+        return 4.0;
+    }
+    function tagClass(gpa) {
+        if (gpa >= 3.7) return 'tag-a';
+        if (gpa >= 2.7) return 'tag-b';
+        if (gpa >= 1.0) return 'tag-c';
+        return 'tag-f';
+    }
+
+    function doSort(f) {
+        if (sortField === f) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        else { sortField = f; sortDir = 'asc'; }
+        render();
+    }
+    function sortedCourses() {
+        return [...courses].sort((a,b) => {
+            let va, vb;
+            if (sortField === 'semester') {
+                const w = s => s ? parseInt(s.slice(0,2)) + (s.includes('秋') ? 0.5 : 0) : 0;
+                va = w(a.semester); vb = w(b.semester);
+            } else {
+                va = (a[sortField]||'').toLowerCase();
+                vb = (b[sortField]||'').toLowerCase();
+            }
+            return (va < vb ? -1 : va > vb ? 1 : 0) * (sortDir === 'asc' ? 1 : -1);
+        });
+    }
+
+    function recalculateStatsOnly() {
+        let wGer=0, wSCU=0, wScore=0, totalCr=0;
+        courses.forEach(c => {
+            const scu = gpaSCU(c.score);
+            wScore += c.score * c.credit;
+            totalCr += c.credit;
+            if (c.score >= 60) { wGer += gpaGerman(c.score)*c.credit; wSCU += scu*c.credit; }
+        });
+        const finalGer = totalCr > 0 ? wGer/totalCr : 5.0;
+        const finalSCU = totalCr > 0 ? wSCU/totalCr : 0.0;
+        const finalAvg = totalCr > 0 ? wScore/totalCr : null;
+        document.getElementById('german-gpa').textContent  = finalGer.toFixed(2);
+        document.getElementById('scu-gpa').textContent     = finalSCU.toFixed(3);
+        document.getElementById('avg-score').textContent   = finalAvg !== null ? finalAvg.toFixed(2) : '—';
+        document.getElementById('total-credits').textContent = totalCr.toFixed(2);
+    }
+
+    function render() {
+        const list = sortedCourses();
+        const isEmpty = list.length === 0;
+        document.getElementById('empty-state').style.display = isEmpty ? 'block' : 'none';
+
+        ['semester','name'].forEach(f => {
+            const th = document.getElementById('th-'+f);
+            if (!th) return;
+            th.classList.toggle('sort-active', sortField === f);
+            const i = th.querySelector('i');
+            i.className = sortField === f ? (sortDir === 'asc' ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down') : 'fa-solid fa-sort';
+            i.style.opacity = sortField === f ? '1' : '0.5';
+        });
+
+        const tbody = document.getElementById('tbody');
+        tbody.innerHTML = '';
+        list.forEach(c => {
+            const scu = gpaSCU(c.score);
+            const semSel = buildSelect(semOptions, c.semester, v => { updateField(c.id,'semester',v, false); }, s => semLabels[s] || s);
+            const typeSel = buildSelect(Object.keys(typeMap), c.type, v => { updateField(c.id,'type',v, false); }, k => typeMap[k]);
+
+            const tr = document.createElement('tr');
+            const tdSem = document.createElement('td'), tdName = document.createElement('td'), tdType = document.createElement('td'),
+                tdSco = document.createElement('td'), tdGpa = document.createElement('td'), tdCr = document.createElement('td'), tdDel = document.createElement('td');
+
+            tdSem.appendChild(semSel);
+            tdName.contentEditable = 'true'; tdName.textContent = c.name; tdName.style.cssText = 'color:var(--text);font-weight:500;';
+            tdName.addEventListener('blur', () => updateField(c.id,'name',tdName.innerText, false));
+
+            tdType.appendChild(typeSel);
+            tdSco.contentEditable = 'true'; tdSco.textContent = c.score; tdSco.style.cssText = 'font-variant-numeric:tabular-nums;font-weight:600;color:var(--text);';
+            tdSco.addEventListener('blur', () => { updateField(c.id,'score',tdSco.innerText, false); tdGpa.innerHTML = `<span class="tag ${tagClass(gpaSCU(c.score))}">${gpaSCU(c.score).toFixed(1)}</span>`; });
+
+            tdGpa.innerHTML = `<span class="tag ${tagClass(scu)}">${scu.toFixed(1)}</span>`;
+            tdCr.contentEditable = 'true'; tdCr.textContent = c.credit; tdCr.style.fontVariantNumeric = 'tabular-nums';
+            tdCr.addEventListener('blur', () => updateField(c.id,'credit',tdCr.innerText, false));
+
+            tdDel.innerHTML = `<button class="btn-danger-ghost" onclick="del(${c.id})"><i class="fa-regular fa-trash-can"></i></button>`;
+            tr.append(tdSem, tdName, tdType, tdSco, tdGpa, tdCr, tdDel);
+            tbody.appendChild(tr);
+        });
+
+        const cards = document.getElementById('course-cards');
+        cards.innerHTML = '';
+        list.forEach(c => {
+            const scu = gpaSCU(c.score);
+            const card = document.createElement('div');
+            card.className = 'course-card';
+
+            const nameInput = document.createElement('input'); nameInput.type = 'text'; nameInput.className = 'course-card-name'; nameInput.value = c.name;
+            nameInput.addEventListener('blur', () => updateField(c.id,'name',nameInput.value, false));
+
+            const delBtn = document.createElement('button'); delBtn.className = 'btn-danger-ghost'; delBtn.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+            delBtn.onclick = () => del(c.id);
+
+            const header = document.createElement('div'); header.className = 'course-card-header'; header.append(nameInput, delBtn);
+
+            const meta = document.createElement('div'); meta.className = 'course-card-meta';
+
+            const semField = document.createElement('div'); semField.className = 'course-card-field';
+            const semLabel = document.createElement('label'); semLabel.textContent = '学期';
+            const mobileSemSel = buildSelect(semOptions, c.semester, v => updateField(c.id,'semester',v, false), s => semLabels[s]||s);
+            semField.append(semLabel, mobileSemSel);
+
+            const typeField = document.createElement('div'); typeField.className = 'course-card-field';
+            const typeLabel = document.createElement('label'); typeLabel.textContent = '属性';
+            const mobileTypeSel = buildSelect(Object.keys(typeMap), c.type, v => updateField(c.id,'type',v, false), k => typeMap[k]);
+            typeField.append(typeLabel, mobileTypeSel);
+
+            const scoreField = document.createElement('div'); scoreField.className = 'course-card-field';
+            const scoreLabel = document.createElement('label'); scoreLabel.textContent = '成绩';
+            const scoreInput = document.createElement('input'); scoreInput.type = 'number'; scoreInput.min = '0'; scoreInput.max = '100'; scoreInput.value = c.score;
+            scoreInput.addEventListener('blur', () => { updateField(c.id,'score',scoreInput.value, false); cardFooterTag.className = `tag ${tagClass(gpaSCU(parseFloat(scoreInput.value)))}`; cardFooterTag.textContent = gpaSCU(parseFloat(scoreInput.value)).toFixed(1); });
+            scoreField.append(scoreLabel, scoreInput);
+
+            const creditField = document.createElement('div'); creditField.className = 'course-card-field';
+            const creditLabel = document.createElement('label'); creditLabel.textContent = '学分';
+            const creditInput = document.createElement('input'); creditInput.type = 'number'; creditInput.min = '0'; creditInput.step = '0.5'; creditInput.value = c.credit;
+            creditInput.addEventListener('blur', () => updateField(c.id,'credit',creditInput.value, false));
+            creditField.append(creditLabel, creditInput);
+
+            meta.append(semField, typeField, scoreField, creditField);
+
+            const footer = document.createElement('div'); footer.className = 'course-card-footer';
+            footer.innerHTML = `<span style="font-size:12px;color:var(--text-3);">川大绩点</span>`;
+            const cardFooterTag = document.createElement('span'); cardFooterTag.className = `tag ${tagClass(scu)}`; cardFooterTag.textContent = scu.toFixed(1);
+            footer.appendChild(cardFooterTag);
+
+            card.append(header, meta, footer); cards.appendChild(card);
+        });
+
+        recalculateStatsOnly();
+    }
+
+    function buildSelect(keys, currentKey, onChange, labelFn) {
+        const sel = document.createElement('select');
+        keys.forEach(k => {
+            const o = document.createElement('option'); o.value = k; o.textContent = labelFn(k);
+            if (k === currentKey) o.selected = true;
+            sel.appendChild(o);
+        });
+        sel.addEventListener('change', () => onChange(sel.value));
+        return sel;
+    }
+
+    function openSidebar()  { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebar-overlay').classList.add('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.remove('open'); }
+
+    function openAuth(a) {
+        authAction = a; document.getElementById('auth-title').textContent = a === 'login' ? '账户身份认证' : '创建云端账户凭证';
+        document.getElementById('overlay').style.display = 'block'; document.getElementById('auth-modal').style.display = 'block';
+    }
+    function openSettings() { document.getElementById('overlay').style.display = 'block'; document.getElementById('settings-modal').style.display = 'block'; }
+    function closeModal() { document.getElementById('overlay').style.display = 'none'; document.getElementById('auth-modal').style.display = 'none'; document.getElementById('settings-modal').style.display = 'none'; }
+
+    function handleAuth() {
+        const u = document.getElementById('auth-user').value.trim();
+        const p = document.getElementById('auth-pass').value.trim();
+        if (!u || !p) return alert('账户名与密码配置不可留空');
+        if (authAction === 'register') {
+            fetch(`${API}/register`, { method:'POST', headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({ username:u, password:p, courses:{ semestersPool:semOptions, courses } }) })
+                .then(r => r.ok ? r.text() : r.text().then(t => { throw Error(t); }))
+                .then(() => { localStorage.setItem('gpa_bak_'+u, JSON.stringify(courses)); loginSuccess(u); })
+                .catch(e => alert('账户创建失败：' + e.message));
+        } else {
+            fetch(`${API}/login`, { method:'POST', headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({username:u, password:p}) })
+                .then(r => r.ok ? r.json() : r.text().then(t => { throw Error(t); }))
+                .then(d => { courses = d.courses || (Array.isArray(d) ? d : []); localStorage.setItem('gpa_bak_'+u, JSON.stringify(courses)); loginSuccess(u); })
+                .catch(e => alert('凭证验证失败：' + e.message));
+        }
+    }
+    function loginSuccess(u) {
+        user = u; mode = 'cloud'; localStorage.setItem('gpa_user', u); localStorage.removeItem('gpa_guest');
+        setUICloud(); closeModal(); render();
+    }
+    function setUICloud() {
+        document.getElementById('dot').classList.add('active');
+        document.getElementById('status-text').textContent = '云端强同步中';
+        document.getElementById('user-name').textContent = user;
+        document.getElementById('page-title').textContent = '学业总览 · ' + user;
+        document.getElementById('nav-settings').style.display = 'flex';
+        document.getElementById('sidebar-actions').innerHTML = `
+    <button class="btn-sidebar btn-sidebar-secondary" style="border-color:var(--danger); color:var(--danger);" onclick="logout()">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i> 安全登出系统
+    </button>`;
+        const tl = document.getElementById('tab-login'); const ts = document.getElementById('tab-settings');
+        if (tl) tl.style.display = 'none'; if (ts) ts.style.display = 'flex';
+    }
+    function logout() { localStorage.removeItem('gpa_user'); location.reload(); }
+    function doRename() {
+        const n = document.getElementById('new-user').value.trim();
+        if (!n) return alert('全新账户标识不能为空');
+        fetch(`${API}/rename?oldUser=${user}&newUser=${n}`, {method:'POST'}).then(r => {
+            if (r.ok) {
+                const old = localStorage.getItem('gpa_bak_'+user);
+                localStorage.setItem('gpa_bak_'+n, old); localStorage.removeItem('gpa_bak_'+user);
+                user = n; localStorage.setItem('gpa_user', n); setUICloud(); closeModal();
+            } else r.text().then(t => alert('名称更迭失败：'+t));
+        });
+    }
+    function doChangePass() {
+        const o = document.getElementById('old-pass').value.trim();
+        const n = document.getElementById('new-pass').value.trim();
+        if (!o || !n) return alert('安全密码更迭字段不可为空');
+        fetch(`${API}/change-password`, { method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({username:user, oldPassword:o, newPassword:n}) })
+            .then(r => r.ok ? alert('密码安全更迭成功') : r.text().then(t => alert('更迭失败：'+t)));
+    }
+    function doDeleteUser() {
+        if (!confirm('确定要彻底注销账户吗？云端物理档案将永久同步清除。')) return;
+        fetch(`${API}/delete-user?username=${user}`, {method:'DELETE'}).then(r => {
+            if (r.ok) { localStorage.removeItem('gpa_user'); location.reload(); }
+            else r.text().then(t => alert('注销受限：'+t));
+        });
+    }
+
+    // 💡 纯文本原生 PDF 国际标准成绩单导出引擎（彻底规避任何环境下的中文乱码）
+    function exportTranscriptPDF() {
+        if (!courses || courses.length === 0) {
+            return alert("当前暂无学科档案数据，无法生成成绩单。");
+        }
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        // 1. 数据深度克隆并强制按学期进行物理排序（确保 Fall 在 Spring 前，时序递增）
+        let pdfSortedCourses = [...courses].sort((a, b) => {
+            const getWeight = (sem) => {
+                if (!sem) return 0;
+                let year = parseInt(sem.slice(0, 2)) || 0;
+                return year + (sem.includes('秋') ? 0.5 : 0);
+            };
+            return getWeight(a.semester) - getWeight(b.semester);
+        });
+
+        // 2. 指标全景核算
+        let wGer = 0, wSCU = 0, wScore = 0, totalCr = 0;
+        pdfSortedCourses.forEach(c => {
+            wScore += c.score * c.credit;
+            totalCr += c.credit;
+            if (c.score >= 60) {
+                wGer += gpaGerman(c.score) * c.credit;
+                wSCU += gpaSCU(c.score) * c.credit;
+            }
+        });
+        const finalGer = totalCr > 0 ? (wGer / totalCr) : 5.0;
+        const finalSCU = totalCr > 0 ? (wSCU / totalCr) : 0.0;
+        const finalAvg = totalCr > 0 ? (wScore / totalCr) : 0.0;
+
+        let y = 25;
+        const startX = 20;
+        const endX = 190;
+
+        const drawLine = (posY, width = 0.2, color = 180) => {
+            pdf.setDrawColor(color); pdf.setLineWidth(width); pdf.line(startX, posY, endX, posY);
+        };
+
+        // 📝 绘制国际标准的矢量文本页眉（纯英文化彻底免疫客户端系统乱码）
+        pdf.setFont("Helvetica", "bold");
+        pdf.setFontSize(22);
+        pdf.text("ACADEMIC TRANSCRIPT", startX, y);
+
+        pdf.setFont("Helvetica", "normal");
+        pdf.setFontSize(9);
+        pdf.setTextColor(100);
+        pdf.text(`HOLDER: ${user ? user.toUpperCase() : 'ANONYMOUS USER'}`, endX, y - 4, { align: 'right' });
+        pdf.text(`DATE: ${new Date().toLocaleDateString('en-US')}`, endX, y, { align: 'right' });
+        y += 12;
+
+        drawLine(y, 0.6, 29);
+        y += 10;
+
+        // 📊 绘制核心数据指标摘要块
+        pdf.setFillColor(248, 250, 252);
+        pdf.rect(startX, y, endX - startX, 18, "F");
+        pdf.setDrawColor(226, 232, 240);
+        pdf.rect(startX, y, endX - startX, 18, "D");
+
+        pdf.setFont("Helvetica", "bold"); pdf.setFontSize(8); pdf.setTextColor(100);
+        pdf.text("GERMAN GPA (BAVARIAN)", startX + 5, y + 6);
+        pdf.text("SCU GPA", startX + 50, y + 6);
+        pdf.text("WEIGHTED AVERAGE", startX + 90, y + 6);
+        pdf.text("TOTAL CREDITS", startX + 140, y + 6);
+
+        pdf.setFontSize(13); pdf.setTextColor(0);
+        pdf.text(finalGer.toFixed(2), startX + 5, y + 13);
+        pdf.text(finalSCU.toFixed(3), startX + 50, y + 13);
+        pdf.text(finalAvg.toFixed(2), startX + 90, y + 13);
+        pdf.text(totalCr.toFixed(2), startX + 140, y + 13);
+        y += 28;
+
+        // 📋 印刷级矢量数据表头
+        pdf.setFillColor(15, 23, 42);
+        pdf.rect(startX, y, endX - startX, 7, "F");
+
+        pdf.setFont("Helvetica", "bold"); pdf.setFontSize(8.5); pdf.setTextColor(255);
+        pdf.text("COURSE MODULE TITLE", startX + 4, y + 5);
+        pdf.text("CATEGORY", startX + 105, y + 5);
+        pdf.text("GRADE", startX + 138, y + 5);
+        pdf.text("SCU GPA", startX + 154, y + 5);
+        pdf.text("CREDIT", startX + 170, y + 5);
+        y += 7;
+
+        let currentSemesterGroup = "";
+
+        // 映射全景英文时序学期
+        const semEnLabels = {
+            '24春': '2024 SPRING SEMESTER', '24秋': '2024 FALL SEMESTER',
+            '25春': '2025 SPRING SEMESTER', '25秋': '2025 FALL SEMESTER',
+            '26春': '2026 SPRING SEMESTER', '26秋': '2026 FALL SEMESTER'
+        };
+
+        // 映射课程类别属性
+        const typeEnMap = {
+            'COMPULSORY': 'Compulsory', 'ELECTIVE': 'Elective', 'OPTIONAL': 'Optional',
+            'MINOR_COMPULSORY': 'Minor Compulsory', 'MINOR_ELECTIVE': 'Minor Elective'
+        };
+
+        pdfSortedCourses.forEach((c) => {
+            // 分页动态高度拦截保护
+            if (y > 270) { pdf.addPage(); y = 25; }
+
+            // 检查学期划分轴是否更迭
+            if (c.semester !== currentSemesterGroup) {
+                currentSemesterGroup = c.semester;
+                pdf.setFillColor(241, 245, 249);
+                pdf.rect(startX, y, endX - startX, 6, "F");
+                pdf.setFont("Helvetica", "bold"); pdf.setFontSize(8.5); pdf.setTextColor(30, 41, 59);
+                pdf.text(semEnLabels[c.semester] || `ACADEMIC TERM: ${c.semester}`, startX + 4, y + 4.5);
+                y += 6;
+            }
+
+            pdf.setFont("Helvetica", "normal"); pdf.setFontSize(8.5); pdf.setTextColor(51, 65, 85);
+
+            // 💡 针对中文字符的动态清理重组防护：
+            // 如果遇到原生字体无法渲染的非 ASCII 字符（如中文课程名），自动过滤并用通用模块前缀代替，
+            // 确保生成的 PDF 每一处字符都可以自由划线、复制和选中
+            let courseDisplayName = c.name;
+            if (/[\u4e00-\u9fa5]/.test(courseDisplayName)) {
+                courseDisplayName = "[Course Module] " + courseDisplayName.replace(/[^\x00-\xff]/g, "");
+            }
+            if (courseDisplayName.length > 52) courseDisplayName = courseDisplayName.substring(0, 49) + "...";
+
+            pdf.text(courseDisplayName, startX + 4, y + 5);
+            pdf.text(typeEnMap[c.type] || typeMap[c.type] || c.type, startX + 105, y + 5);
+
+            pdf.setFont("Helvetica", "bold");
+            pdf.text(c.score.toFixed(1), startX + 138, y + 5);
+            pdf.text(gpaSCU(c.score).toFixed(1), startX + 154, y + 5);
+            pdf.setFont("Helvetica", "normal");
+            pdf.text(c.credit.toFixed(2), startX + 170, y + 5);
+
+            y += 7.5;
+            drawLine(y, 0.1, 241);
+        });
+
+        // 法律效力尾注与安全性免责声明
+        if (y > 250) { pdf.addPage(); y = 25; }
+        y += 8; drawLine(y, 0.4, 200); y += 5;
+        pdf.setFont("Helvetica", "normal"); pdf.setFontSize(7.5); pdf.setTextColor(140);
+
+        pdf.text("REGULATORY NOTE: This document is a text-based electronic academic record formatted automatically under the standard", startX, y);
+        pdf.text("Bavarian formula and Sichuan University grading guidelines. Text stream is fully vectorized and optimized for网申 / OCR processing.", startX, y + 4);
+
+        const fileName = `Transcript_Vector_${user || 'Haitian'}.pdf`;
+        pdf.save(fileName);
+    }
+</script>
+</body>
+</html>
