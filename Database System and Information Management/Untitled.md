@@ -1,1 +1,1 @@
-$\sigma$ (sigma) $\time$ 
+'CROSSS JOIN'
