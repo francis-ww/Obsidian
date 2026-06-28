@@ -1,1 +1,1 @@
-\BOWTIE SC
+$$Student \bowtie SC$$ 
