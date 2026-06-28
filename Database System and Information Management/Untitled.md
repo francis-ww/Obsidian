@@ -1,1 +1,1 @@
-$$Student \bowtie SC$$ 
+$$Student \bowtie SC$$ $$R \div S$$
